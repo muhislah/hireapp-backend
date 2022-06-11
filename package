@@ -1,0 +1,5 @@
+express
+pg
+jsonwebtoken
+nodemon -D
+dotenv
