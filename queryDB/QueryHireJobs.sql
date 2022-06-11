@@ -1,5 +1,5 @@
 CREATE TABLE employee (
-     id_employee VARCHAR(70) NOT NULL PRIMARY KEY,
+     id_employee INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
      fullname VARCHAR(200) NOT NULL,
      password VARCHAR(300) NOT NULL,
      email VARCHAR(300) NOT NULL,
@@ -14,10 +14,17 @@ CREATE TABLE employee (
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+INSERT INTO employee (fullname,password,email,phonenumber,jobs,work_place,address,image,description,skill) 
+VALUES ('wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang'),
+('fatih','fatih12','fatih@gmail.com',0827339299292,'quality asuranse','tokopedia','jalan belok','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang'),
+('faqih','faqihaja','faqih@gmail.com',0877362282929,'UI UX','pijar sekolah','jalan terus aja','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang'),
+('muhammad','muhammad','muhammad@gmail.com',086368292910,'Engginering','pijar sekolah','jalan buntu','profil.png','selalu istiqomah','java, sprintbot, pwa'),
+('dwi','dwi888','dwi@gmail.com',0865352282929,'frontend','pijar sekolah',' akhir jalan','profil.png','selalu istiqomah','java, sprintbot, pwa'),
+('purwanto','purwanto233','purwanto@gmail.com',082736289329,'backend','tokopedia','jalan menggok','profil.png','selalu istiqomah','java, sprintbot, pwa')
 
 
 CREATE TABLE company (
-     id_company VARCHAR(70) NOT NULL PRIMARY KEY,
+     idCompany VARCHAR(200) NOT NULL PRIMARY KEY,
      fullname VARCHAR(200) NOT NULL,
      password VARCHAR(300) NOT NULL,
      email VARCHAR(300) NOT NULL,
@@ -31,10 +38,18 @@ CREATE TABLE company (
      linkedin VARCHAR(300) DEFAULT NULL,
      image VARCHAR(300) ,
      active VARCHAR(50),
+     id_employee INT,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO company (id_company,fullname,password,email,phonenumber,position,company_field,address,image,company_description,company) 
+VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','PT. serba guna.com'),
+('id-cpny-1','fatih','fatih12','fatih@gmail.com',0827339299292,'quality asuranse','tokopedia','jalan belok','profil.png','pekerja keras tanpa lelah','PT. serba guna.com'),
+('id-cpny-1','faqih','faqihaja','faqih@gmail.com',0877362282929,'UI UX','pijar sekolah','jalan terus aja','profil.png','pekerja keras tanpa lelah','PT. serba guna.com'),
+('id-cpny-1','muhammad','muhammad','muhammad@gmail.com',086368292910,'Engginering','pijar sekolah','jalan buntu','profil.png','selalu istiqomah','PT abal-abal'),
+('id-cpny-1','dwi','dwi888','dwi@gmail.com',0865352282929,'frontend','pijar sekolah',' akhir jalan','profil.png','selalu istiqomah','PT abal-abal'),
+('id-cpny-1','purwanto','purwanto233','purwanto@gmail.com',082736289329,'backend','tokopedia','jalan menggok','profil.png','selalu istiqomah','PT abal-abal')
 
 CREATE TABLE work_experience (
      id_experience INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -49,12 +64,16 @@ CREATE TABLE work_experience (
 
 
 CREATE TABLE portfolio (
-    id_portfolio INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name_apps VARCHAR(300) NOT NULL,
+    idPortfolio INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nameApps VARCHAR(300) NOT NULL,
     respository VARCHAR(200) NOT NULL,
     type  VARCHAR(200) DEFAULT NULL,
     image VARCHAR(200) NOT NULL,
-    id_employee INT,
+    idEmployee INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+INSERT INTO company (id_company,fullname,password,email,phonenumber,position,company_field,address,image,company_description,company) 
+VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','PT. serba guna.com'),
