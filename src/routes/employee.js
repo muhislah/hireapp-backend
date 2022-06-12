@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const employeeController = require('../controller/employee')
+const {getEmploye, getDetailEmployee} = require('../controller/employee')
 
-router .get('/', employeeController.getEmploye)
-
+router 
+    .get('/', getEmploye)
+    .get('/:id_employee', getDetailEmployee)
 module.exports = router
