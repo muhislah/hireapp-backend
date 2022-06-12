@@ -57,6 +57,84 @@ const authModel = {
       )
     })
   },
+  updateProfil: ({
+    fullname,
+    password,
+    company,
+    phonenumber,
+    position,
+    email,
+    companyfield,
+    address,
+    companydescription,
+    image,
+    instagram,
+    linkedin,
+    idcompany
+  }) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `UPDATE company SET fullname = COALESCE($1,fullname), 
+        password = COALESCE($2,password),
+        company = COALESCE($3,company), 
+        phonenumber = COALESCE($4,phonenumber), 
+        position = COALESCE($5,position),
+        email = COALESCE($6,email),
+        companyfield = COALESCE($7,companyfield),
+        address = COALESCE($8,address),
+        companydescription = COALESCE($9,companydescription),
+        image = COALESCE($10,image),
+        instagram = COALESCE($11,instagram),
+        linkedin = COALESCE($12,linkedin)
+         WHERE idcompany = $13`,
+        [
+          fullname,
+          password,
+          company,
+          phonenumber,
+          position,
+          email,
+          companyfield,
+          address,
+          companydescription,
+          image,
+          instagram,
+          linkedin,
+          idcompany
+        ],
+        (err, result) => {
+          if (!err) {
+            resolve(result.rows)
+          } else {
+            reject(new Error(err))
+          }
+        }
+      )
+    })
+  },
+  // updateProfil: ({
+  //   fullname,
+  //   password,
+  //   company,
+  //   phonenumber,
+  //   position,
+  //   email,
+  //   idcompan
+  // }) => {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(
+  //       'UPDATE company SET fullname = $1, password =$2, company=$3, phonenumber=$4, position=$5 WHERE email=$6',
+  //       [fullname, password, company, phonenumber, position, email],
+  //       (err, result) => {
+  //         if (!err) {
+  //           resolve(result)
+  //         } else {
+  //           reject(new Error(err))
+  //         }
+  //       }
+  //     )
+  //   })
+  // },
   changePassword: (body) => {
     return new Promise((resolve, reject) => {
       const qs = 'SELECT email FROM company WHERE idCompany = $1'

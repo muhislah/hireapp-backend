@@ -32,21 +32,19 @@ const protect = (req, res, next) => {
     //   next(createHttpError)
   }
 }
-const isAdmin = (req, res, next) => {
-  if (req.decoded.role !== 'admin') {
-    return next(createError(400, 'admin only'))
-  }
-  next()
-}
-const isUsers = (req, res, next) => {
-  if (req.decoded.role !== 'user') {
-    return next(createError(400, 'user only'))
-  }
-  next()
-}
+// const isEmployee = (req, res, next) => {
+//   if (req.decoded.role !== 'admin') {
+//     return next(createError(400, 'admin only'))
+//   }
+//   next()
+// }
+// const isCompany = (req, res, next) => {
+//   if (req.decoded.role !== 'user') {
+//     return next(createError(400, 'user only'))
+//   }
+//   next()
+// }
 
 module.exports = {
-  protect,
-  isAdmin,
-  isUsers
+  protect
 }

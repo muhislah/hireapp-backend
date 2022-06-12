@@ -4,7 +4,8 @@ const common = require('../helper/common')
 
 const portfolioController = {
   getPortfolio: (req, res, next) => {
-    portfolioModel.getPortfolio()
+    portfolioModel
+      .getPortfolio()
       .then((result) => {
         common.response(res, result, 'get data portfolio', 200)
       })
@@ -65,7 +66,7 @@ const portfolioController = {
     // const name = req.body.name
     portfolioModel
       .deletePortfolio(idPortfolio)
-      .then((result) => {
+      .then(() => {
         res.status(200).json({
           message: 'deleted success',
           data: `idPortfolio : ${idPortfolio}`

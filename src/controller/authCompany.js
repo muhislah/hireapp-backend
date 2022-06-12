@@ -26,16 +26,12 @@ const authCompany = {
           message: ' data yang anda inputkan salah'
         })
       }
-      // if (user.active === '0') {
-      //   return res.json({
-      //     message: ' anda belum verifikasi'
-      //   })
-      // }
       delete user.password
       const payload = {
         email: user.email,
-        id: user.id,
+        id: user.idcompany,
         fullname: user.fullname,
+        phonenumber: user.phonenumber,
         company: user.company,
         position: user.position
       }
@@ -43,9 +39,10 @@ const authCompany = {
       const newRefreshToken = await authHelper.generateRefreshToken(payload)
       const data = {
         email,
-        id: user.id,
+        id: user.idcompany,
         token: user.token,
         fullname: user.fullname,
+        phonenumber: user.phonenumber,
         company: user.company,
         position: user.position,
         refreshToken: newRefreshToken
@@ -59,7 +56,8 @@ const authCompany = {
 
   registerCompany: async (req, res, next) => {
     try {
-      const { fullname, password, email, company, phonenumber, position } = req.body
+      const { fullname, password, email, company, phonenumber, position } =
+        req.body
       const salt = bcrypt.genSaltSync(10)
       const passwrodHash = bcrypt.hashSync(password, salt)
       const data = {
@@ -103,17 +101,58 @@ const authCompany = {
         rows: [user]
       } = await authModel.FindEmail(email)
       const data = {
-        name: user.name,
+        name: user.fullname,
         email: user.email,
-        phone_number: user.phonenumber
+        phone_number: user.phonenumber,
+        company: user.company,
+        position: user.position
       }
       delete user.password
       // commonHellper.response(res, user, 'Uppsstt email sudah ada', 200)
-      common.response(res, data, `anda berada di profil ${user.name}`, 200)
+      common.response(res, data, `anda berada di profil ${user.fullname}`, 200)
     } catch (error) {
       console.log(error)
       next(createError)
     }
+  },
+  updateProfil: (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.SECRET_KEY)
+    const idcompany = decoded.id
+    console.log(idcompany)
+    const {
+      companyfield,
+      address,
+      companydescription,
+      email,
+      image,
+      instagram,
+      linkedin,
+      phonenumber,
+      company
+    } =
+      req.body
+    const data = {
+      companyfield,
+      address,
+      companydescription,
+      email,
+      image: `http://${req.get('host')}/img/${image}`,
+      instagram,
+      linkedin,
+      phonenumber,
+      company
+    }
+    console.log(data)
+    authModel
+      .updateProfil({ ...data, idcompany })
+      .then(() => {
+        common.response(res, data, 'data updated success', 200)
+      })
+      .catch((error) => {
+        console.log(error)
+        next(createError)
+      })
   },
   refreshToken: async (req, res, next) => {
     try {
@@ -148,7 +187,7 @@ const authCompany = {
       .changePassword(req.body)
       .then(() => {
         res.json({
-          message: 'berhasil diganti'
+          message: 'Password berhasil diganti'
         })
       })
       .catch((_error) => {
@@ -161,7 +200,7 @@ module.exports = {
   authCompany
 }
 
-// psql -U dnymxhsatwjxce -h ec2-52-4-104-184.compute-1.amazonaws.com -p 5432 -d dd7rboub6u32p5
+// psql -U uqbvengweiiehg -h ec2-52-73-184-24.compute-1.amazonaws.com -p 5432 -d dt4ic1rabho76
 
 // ALTER TABLE users
 // ADD role AS enum ('admin','user');
