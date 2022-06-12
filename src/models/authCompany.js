@@ -26,12 +26,22 @@ const authModel = {
     email,
     company,
     phonenumber,
-    position
+    position,
+    role
   }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'INSERT INTO company (idCompany, fullname, password, email,  company,phonenumber,position) VALUES ($1,$2,$3,$4,$5,$6,$7)',
-        [idCompany, fullname, password, email, company, phonenumber, position],
+        'INSERT INTO company (idCompany, fullname, password, email,  company,phonenumber,position,role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        [
+          idCompany,
+          fullname,
+          password,
+          email,
+          company,
+          phonenumber,
+          position,
+          role
+        ],
         (err, result) => {
           if (!err) {
             resolve(result)

@@ -9,5 +9,5 @@ const portfolioRouter = require('./portfolio')
 Router.use('/employee', employeeRoutes)
   .use('/company', companyRouter)
   .use('/portfolio', portfolioRouter)
-  .use('/auth', authController)
+  .use('/authCompany', authController)
 module.exports = Router

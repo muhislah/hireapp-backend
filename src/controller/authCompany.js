@@ -33,7 +33,8 @@ const authCompany = {
         fullname: user.fullname,
         phonenumber: user.phonenumber,
         company: user.company,
-        position: user.position
+        position: user.position,
+        role: user.role
       }
       user.token = authHelper.generateToken(payload)
       const newRefreshToken = await authHelper.generateRefreshToken(payload)
@@ -60,6 +61,7 @@ const authCompany = {
         req.body
       const salt = bcrypt.genSaltSync(10)
       const passwrodHash = bcrypt.hashSync(password, salt)
+      const role = 'company'
       const data = {
         idCompany: uuidv4(),
         email,
@@ -67,7 +69,8 @@ const authCompany = {
         fullname,
         company,
         phonenumber,
-        position
+        position,
+        role
       }
       console.log(data)
       const { rowCount } = await authModel.FindEmail(email)
@@ -84,7 +87,8 @@ const authCompany = {
           fullname,
           company,
           phonenumber,
-          position
+          position,
+          role
         },
         'Register Success',
         200

@@ -62,6 +62,23 @@ const companyController = {
       console.log(error)
       next(createError)
     }
+  },
+  getCompanyByEmployee: (req, res, next) => {
+    const id = req.params.id
+    modelCompany
+      .CompanyByEmployee(id)
+      .then((result) => {
+        common.response(
+          res,
+          result.rows,
+          'data company by employee',
+          200
+        )
+      })
+      .catch((err) => {
+        console.log(err)
+        next(createError)
+      })
   }
 }
 

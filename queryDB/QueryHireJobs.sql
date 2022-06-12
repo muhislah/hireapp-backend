@@ -11,16 +11,17 @@ CREATE TABLE employee (
      skill VARCHAR(300) DEFAULT NULL,
      image VARCHAR(300) ,
      active VARCHAR(50),
+     idCompany INT ,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-INSERT INTO employee (fullname,password,email,phonenumber,jobs,work_place,address,image,description,skill) 
-VALUES ('wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang'),
-('fatih','fatih12','fatih@gmail.com',0827339299292,'quality asuranse','tokopedia','jalan belok','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang'),
-('faqih','faqihaja','faqih@gmail.com',0877362282929,'UI UX','pijar sekolah','jalan terus aja','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang'),
-('muhammad','muhammad','muhammad@gmail.com',086368292910,'Engginering','pijar sekolah','jalan buntu','profil.png','selalu istiqomah','java, sprintbot, pwa'),
-('dwi','dwi888','dwi@gmail.com',0865352282929,'frontend','pijar sekolah',' akhir jalan','profil.png','selalu istiqomah','java, sprintbot, pwa'),
-('purwanto','purwanto233','purwanto@gmail.com',082736289329,'backend','tokopedia','jalan menggok','profil.png','selalu istiqomah','java, sprintbot, pwa')
+INSERT INTO employee (fullname,password,email,phonenumber,jobs,work_place,address,image,description,skill,idCompany) 
+VALUES ('wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang',3),
+('fatih','fatih12','fatih@gmail.com',0827339299292,'quality asuranse','tokopedia','jalan belok','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang',2),
+('faqih','faqihaja','faqih@gmail.com',0877362282929,'UI UX','pijar sekolah','jalan terus aja','profil.png','pekerja keras tanpa lelah','jsavascript, php, golang',1),
+('muhammad','muhammad','muhammad@gmail.com',086368292910,'Engginering','pijar sekolah','jalan buntu','profil.png','selalu istiqomah','java, sprintbot, pwa',1),
+('dwi','dwi888','dwi@gmail.com',0865352282929,'frontend','pijar sekolah',' akhir jalan','profil.png','selalu istiqomah','java, sprintbot, pwa',2),
+('purwanto','purwanto233','purwanto@gmail.com',082736289329,'backend','tokopedia','jalan menggok','profil.png','selalu istiqomah','java, sprintbot, pwa',2)
 
 
 CREATE TABLE company (
@@ -39,6 +40,7 @@ CREATE TABLE company (
      linkedin VARCHAR(300) DEFAULT NULL,
      active VARCHAR(50),
      id_employee INT,
+     role VARCHAR(50),
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
