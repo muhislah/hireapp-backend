@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const {getEmploye, getDetailEmployee} = require('../controller/employee')
+const {protect} = require('../middlewares/authEmployee')
 
 router 
-    .get('/', getEmploye)
-    .get('/:id_employee', getDetailEmployee)
+    .get('/', protect, getEmploye)
+    .get('/:id_employee', protect, getDetailEmployee)
 module.exports = router

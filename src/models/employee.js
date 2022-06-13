@@ -1,8 +1,8 @@
 const pool = require('../config/db')
 
-const selectEmployee = ({ type, limit, offset, search }) => {
+const selectEmployee = ({ sortby, limit, offset, search, sort }) => {
   return new Promise((resolve, reject) => {
-    pool.query(`SELECT * FROM employee WHERE ${type} ILIKE'%${search}%' LIMIT $1 OFFSET $2`, [limit, offset], (err, result) => {
+    pool.query(`SELECT * FROM employee WHERE ${sortby} ILIKE'%${search}%' ORDER BY ${sortby} ${sort} LIMIT $1 OFFSET $2`, [limit, offset], (err, result) => {
       if (!err) {
         resolve(result)
       } else {

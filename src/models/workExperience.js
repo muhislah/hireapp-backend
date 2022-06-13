@@ -35,9 +35,9 @@ const create = ({ position, name_company, month_year, job_description }) => {
     })
   }
 
-  const search = () => {
+  const search = ({sortby, search}) => {
     return new Promise((resolve, reject)=>{
-        pool.query('SELECT * FROM work_experience', (err, result) => {
+        pool.query(`SELECT * FROM work_experience WHERE ${sortby} ILIKE'%${search}%'` , (err, result) => {
             if(!err) {
                 resolve(result.rows)
             } else {

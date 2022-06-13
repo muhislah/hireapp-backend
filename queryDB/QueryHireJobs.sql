@@ -11,18 +11,11 @@ CREATE TABLE employee (
      skill VARCHAR(300) DEFAULT NULL,
      image VARCHAR(300) ,
      active VARCHAR(50),
+     role VARCHAR(50),
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 INSERT INTO employee(id_employee, fullname, password, email, phonenumber, jobs, work_place, address, skill)VALUES(1, 'budi', 'budi123', 'budi123@gmail.com', 08131510777, 'web developer', 'jakarta', 'jakarta', 'javascript');
-
-CREATE TABLE auth_employee (
-     id_employee VARCHAR(70) NOT NULL PRIMARY KEY,
-     fullname VARCHAR(200) NOT NULL,
-     password VARCHAR(300) NOT NULL,
-     email VARCHAR(300) NOT NULL,
-     phonenumber numeric NOT NULL
-);
 
 CREATE TABLE company (
      id_company VARCHAR(70) NOT NULL PRIMARY KEY,
