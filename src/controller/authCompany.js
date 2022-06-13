@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const authHelper = require('../helper/auth')
+const cloudinary = require('../helper/cloudinary')
 
 const authCompany = {
   loginCompany: async (req, res, next) => {
@@ -119,44 +120,51 @@ const authCompany = {
       next(createError)
     }
   },
-  updateProfil: (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
-    const decoded = jwt.verify(token, process.env.SECRET_KEY)
-    const idcompany = decoded.id
-    console.log(idcompany)
-    const {
-      companyfield,
-      address,
-      companydescription,
-      email,
-      image,
-      instagram,
-      linkedin,
-      phonenumber,
-      company
-    } =
+  updateProfil: async (req, res, next) => {
+    try {
+      const token = req.headers.authorization.split(' ')[1]
+      const decoded = jwt.verify(token, process.env.SECRET_KEY)
+      const idcompany = decoded.id
+      // console.log(idcompany)
+      const {
+        companyfield,
+        address,
+        companydescription,
+        email,
+        instagram,
+        linkedin,
+        phonenumber,
+        company
+      } =
       req.body
-    const data = {
-      companyfield,
-      address,
-      companydescription,
-      email,
-      image: `http://${req.get('host')}/img/${image}`,
-      instagram,
-      linkedin,
-      phonenumber,
-      company
+      const gambars = req.file.path
+      // console.log(req.file)
+      const ress = await cloudinary.uploader.upload(gambars)
+      const data = {
+        companyfield,
+        address,
+        companydescription,
+        email,
+        image: ress.url,
+        instagram,
+        linkedin,
+        phonenumber,
+        company
+      }
+      console.log(data)
+      authModel
+        .updateProfil({ ...data, idcompany })
+        .then(() => {
+          common.response(res, data, 'data updated success', 200)
+        })
+        .catch((error) => {
+          console.log(error)
+          next(createError)
+        })
+    } catch (error) {
+      console.log(error)
+      next(createError)
     }
-    console.log(data)
-    authModel
-      .updateProfil({ ...data, idcompany })
-      .then(() => {
-        common.response(res, data, 'data updated success', 200)
-      })
-      .catch((error) => {
-        console.log(error)
-        next(createError)
-      })
   },
   refreshToken: async (req, res, next) => {
     try {

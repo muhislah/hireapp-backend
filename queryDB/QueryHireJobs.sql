@@ -76,6 +76,13 @@ CREATE TABLE portfolio (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
+CREATE TABLE hirejobs (
+     idhirejob INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    status VARCHAR(300) NOT NULL,
+    idEmployee INT,
+    idCompany INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
 INSERT INTO company (id_company,fullname,password,email,phonenumber,position,company_field,address,image,company_description,company) 
 VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','PT. serba guna.com'),

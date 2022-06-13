@@ -2,7 +2,7 @@ const createHttpError = require('http-errors')
 const multer = require('multer')
 const path = require('path')
 // const commonHellper = require('../helpers/common')
-
+// const cloudinary = require('../helper/cloudinary')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './public/images')
@@ -60,7 +60,7 @@ const uploadImg = {
   },
   multipleUpload: (req, res, next) => {
     const multipleUpload = upload.array('image', 4)
-    multipleUpload(req, res, (err) => {
+    multipleUpload(req, res, async (err) => {
       if (err) {
         res.json({
           message: err.message
@@ -72,6 +72,8 @@ const uploadImg = {
         //   })
         //   req.body.image = image.join(',')
           req.body.image = req.file.filename
+          // const images = await cloudinary.uploader.upload(req.file.path)
+          // console.log(images)
         } catch {
           console.log(err)
           // return commonHellper.response(res, null, err.message, 400)

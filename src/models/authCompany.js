@@ -122,29 +122,6 @@ const authModel = {
       )
     })
   },
-  // updateProfil: ({
-  //   fullname,
-  //   password,
-  //   company,
-  //   phonenumber,
-  //   position,
-  //   email,
-  //   idcompan
-  // }) => {
-  //   return new Promise((resolve, reject) => {
-  //     db.query(
-  //       'UPDATE company SET fullname = $1, password =$2, company=$3, phonenumber=$4, position=$5 WHERE email=$6',
-  //       [fullname, password, company, phonenumber, position, email],
-  //       (err, result) => {
-  //         if (!err) {
-  //           resolve(result)
-  //         } else {
-  //           reject(new Error(err))
-  //         }
-  //       }
-  //     )
-  //   })
-  // },
   changePassword: (body) => {
     return new Promise((resolve, reject) => {
       const qs = 'SELECT email FROM company WHERE idCompany = $1'

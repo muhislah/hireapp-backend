@@ -13,14 +13,14 @@ const portfolioModel = {
     })
   },
   insert: (body) => {
-    const { nameApps, respository, type, image, idEmployee } = body
+    const { nameApps, respository, type, image = [], idEmployee } = body
     return new Promise((resolve, reject) => {
       db.query(
         'INSERT INTO portfolio (nameApps, respository, type, image, idEmployee) VALUES ($1,$2,$3,$4,$5)',
         [nameApps, respository, type, image, idEmployee],
         (err, result) => {
           if (!err) {
-            resolve(result)
+            resolve(result.rows)
           } else {
             reject(new Error(err))
           }

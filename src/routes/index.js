@@ -5,9 +5,13 @@ const employeeRoutes = require('./employee')
 const companyRouter = require('./company')
 const authController = require('./authCompany')
 const portfolioRouter = require('./portfolio')
+const hirejob = require('./hirejobs')
+const notifikasi = require('./Notifikasi')
 
 Router.use('/employee', employeeRoutes)
   .use('/company', companyRouter)
   .use('/portfolio', portfolioRouter)
   .use('/authCompany', authController)
+  .use('/hirejob', hirejob)
+  .use('/notifikasi', notifikasi)
 module.exports = Router
