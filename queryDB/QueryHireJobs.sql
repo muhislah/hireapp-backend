@@ -70,7 +70,7 @@ CREATE TABLE portfolio (
     nameApps VARCHAR(300) NOT NULL,
     respository VARCHAR(200) NOT NULL,
     type  VARCHAR(200) DEFAULT NULL,
-    image VARCHAR(200) NOT NULL,
+    image VARCHAR(200) [],
     idEmployee INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
