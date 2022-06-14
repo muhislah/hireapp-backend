@@ -3,3 +3,5 @@ pg
 jsonwebtoken
 nodemon -D
 dotenv
+bcryptjs
+uuid

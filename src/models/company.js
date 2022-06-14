@@ -27,10 +27,9 @@ const modelCompany = {
   countCompany: () => {
     return db.query('SELECT COUNT(*) AS total FROM company')
   },
-  CompanyByEmployee: (id) => {
+  CompanyByEmployee: () => {
     return db.query(
-      ' SELECT * FROM company INNER JOIN employee ON company.id_employee = employee.id_employee where id_employee = $1',
-      [id]
+      ' SELECT * FROM company INNER JOIN employee ON company.idemployee = employee.idemployee'
     )
   }
 }

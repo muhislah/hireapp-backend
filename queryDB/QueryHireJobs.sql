@@ -11,6 +11,7 @@ CREATE TABLE employee (
      skill VARCHAR(300) DEFAULT NULL,
      image VARCHAR(300) ,
      active VARCHAR(50),
+<<<<<<< HEAD
      idCompany INT ,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -23,6 +24,13 @@ VALUES ('wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development
 ('dwi','dwi888','dwi@gmail.com',0865352282929,'frontend','pijar sekolah',' akhir jalan','profil.png','selalu istiqomah','java, sprintbot, pwa',2),
 ('purwanto','purwanto233','purwanto@gmail.com',082736289329,'backend','tokopedia','jalan menggok','profil.png','selalu istiqomah','java, sprintbot, pwa',2)
 
+=======
+     role VARCHAR(50),
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+INSERT INTO employee(id_employee, fullname, password, email, phonenumber, jobs, work_place, address, skill)VALUES(1, 'budi', 'budi123', 'budi123@gmail.com', 08131510777, 'web developer', 'jakarta', 'jakarta', 'javascript');
+>>>>>>> b23f705
 
 CREATE TABLE company (
      idCompany VARCHAR(200) NOT NULL PRIMARY KEY,
