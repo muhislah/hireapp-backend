@@ -2,9 +2,9 @@ const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const jwt = require('jsonwebtoken')
 const createError = require("http-errors");
-const { findByEmail, create, updateProfile } = require("../models/auth");
+const { findByEmail, create, updateProfile, changePassword } = require("../models/authEmployee");
 const commonHelper = require("../helper/common");
-const authHelper = require('../helper/auth')
+const authHelper = require('../helper/authEmployee')
 
 const register = async (req, res, next) => {
   try {
@@ -23,6 +23,7 @@ const register = async (req, res, next) => {
       email,
       phonenumber,
       password: passwordHash,
+      role: 'employee'
     };
     await create(data);
     commonHelper.response(res, null, 201, "User berhasil register");
@@ -105,17 +106,31 @@ const updateProfileEmployee = async (req, res, next) => {
       skill,
       image: `http://${req.get("host")}/img/${req.file.filename}`,
       active,
+      role: 'employee',
       updated_at
     };
     await updateProfile(data);
-    commonHelper.response(res, data, 201, "pdate user success");
+    commonHelper.response(res, data, 201, "update user success");
   } catch (error) {
     console.log(error);
   }
 };
+
+const changePasswordEmployee = (req, res, next) => {
+  changePassword(req.body)
+  .then(()=>{
+    res.json({
+      message: 'password has been changed'
+    })
+  }) 
+  .catch((err)=>{
+    console.log(err);
+  })
+}
 module.exports = {
   register,
   login,
   refreshToken,
-  updateProfileEmployee
+  updateProfileEmployee,
+  changePasswordEmployee
 };

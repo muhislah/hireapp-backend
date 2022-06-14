@@ -7,10 +7,11 @@ exports.getEmploye = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const offset = (page - 1) * limit;
 
-    const type = req.query.type || "fullname"
+    const sortby = req.query.sortby || "fullname";
+    const sort = req.query.sort || "asc";
     const search = req.query.search || "";
 
-    const {rows: employee} = await employeeModel.selectEmployee({ limit, offset, type, search });
+    const {rows: employee} = await employeeModel.selectEmployee({ limit, offset, sortby, search, sort });
     // console.log(employee);
     
     const {

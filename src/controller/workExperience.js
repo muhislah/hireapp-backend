@@ -48,8 +48,10 @@ exports.updateWorkExperience = async (req, res, next) => {
 
   exports.searchWorkExperience = async (req, res, next) => {
     try {
-      
-     const result = await workExperienceModel.search()
+      const sortby = req.query.sortby || "name_company";
+      const search = req.query.search || "";
+
+     const result = await workExperienceModel.search({sortby, search})
   
       commonHelper.response(res, result, 200, 'get data success')
     } catch (error) {

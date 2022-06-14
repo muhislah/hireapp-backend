@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const {createWorkExperience, updateWorkExperience, deleteWorkExperience, searchWorkExperience} = require('../controller/workExperience')
-
+const {protect}  = require('../middlewares/authEmployee')
 router
-    .post('/', createWorkExperience)
-    .put('/:id_experience', updateWorkExperience)
-    .delete('/:id_experience', deleteWorkExperience)
-    .get('/', searchWorkExperience)
+    .post('/', protect,  createWorkExperience)
+    .put('/:id_experience', protect,  updateWorkExperience)
+    .delete('/:id_experience', protect,  deleteWorkExperience)
+    .get('/', protect, searchWorkExperience)
 
 module.exports = router
