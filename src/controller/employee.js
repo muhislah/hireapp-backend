@@ -1,5 +1,6 @@
 const employeeModel = require('../models/employee')
 const commonHelper = require('../helper/common')
+const createHttpError = require('http-errors')
 
 exports.getEmploye = async (req, res, next) => {
   try {
@@ -39,17 +40,15 @@ exports.getEmploye = async (req, res, next) => {
   }
 }
 
-exports.getDetailEmployee = async (req, res, next) => {
-  try {
-    const idemployee = req.params.idemployee
-    const {
-      rows: [result]
-    } = await employeeModel.selectDetailEmployee(idemployee)
-    // console.log(result);
-    delete result.password
-
-    commonHelper.response(res, result, 'Get detail data success', 200)
-  } catch (error) {
-    console.log(error)
-  }
+exports.getDetailEmployee = (req, res, next) => {
+  const idemployee = req.params.idemployee
+  employeeModel
+    .selectDetailEmployee(idemployee)
+    .then((data) => {
+      commonHelper.response(res, data, 'Get detail data success', 200)
+    })
+    .catch((error) => {
+      console.log(error)
+      next(createHttpError)
+    })
 }

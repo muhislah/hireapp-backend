@@ -9,13 +9,13 @@ exports.createWorkExperience = async (req, res, next) => {
       req.body
     const token = req.headers.authorization.split(' ')[1]
     const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
-    const idEmployee = decoded.id
+    const idemployee = decoded.id
     const data = {
       position,
       namecompany,
       monthyear,
       jobdescription,
-      idEmployee
+      idemployee
     }
 
     await workExperienceModel.create(data)
@@ -32,14 +32,14 @@ exports.updateWorkExperience = async (req, res, next) => {
     const { position, namecompany, monthyear, jobdescription } = req.body
     const token = req.headers.authorization.split(' ')[1]
     const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
-    const idEmployee = decoded.id
+    const idemployee = decoded.id
     const data = {
       idexperience,
       position,
       namecompany,
       monthyear,
       jobdescription,
-      idEmployee
+      idemployee
     }
     await workExperienceModel.update({ ...data, idexperience })
     console.log(data)
