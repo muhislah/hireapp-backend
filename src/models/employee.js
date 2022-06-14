@@ -19,7 +19,7 @@ const selectEmployee = ({ sortby, limit, offset, search, sort }) => {
 const selectDetailEmployee = (idemployee) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'SELECT * FROM employee INNER JOIN work_experience ON employee.idexperience = work_experience.idexperience INNER JOIN portfolio ON employee.idportfolio = portfolio.idportfolio WHERE employee.idemployee = $1',
+      'SELECT employee.fullname,employee.email, employee.skill, employee.address,employee.description,portfolio.image,portfolio.nameapps,portfolio.respository,portfolio.type, work_experience.jobdescription,work_experience.monthyear,work_experience.namecompany,work_experience.position FROM employee INNER JOIN work_experience ON employee.idexperience = work_experience.idexperience INNER JOIN portfolio ON employee.idportfolio = portfolio.idportfolio WHERE employee.idemployee =$1',
       [idemployee],
       (err, result) => {
         if (!err) {
@@ -43,7 +43,6 @@ const countEmployee = () => {
     })
   })
 }
-
 
 module.exports = {
   selectEmployee,

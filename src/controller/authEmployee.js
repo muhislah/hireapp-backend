@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const { v4: uuidv4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const createError = require('http-errors')
-const { findByEmail, create, updateProfile, changePassword } = require('../models/authEmployee')
+const { findByEmail, create, updateProfile, changePassword, getprofil } = require('../models/authEmployee')
 const commonHelper = require('../helper/common')
 const authHelper = require('../helper/authEmployee')
 const cloudinary = require('../helper/cloudinary')
@@ -65,7 +65,8 @@ const login = async (req, res, next) => {
 
     const payload = {
       fullname: user.fullname,
-      email: user.email
+      email: user.email,
+      id: user.idemployee
     }
 
     user.token = authHelper.generateToken(payload)
@@ -98,7 +99,19 @@ const updateProfileEmployee = async (req, res, next) => {
     const gambars = req.file.path
     // console.log(req.file)
     const ress = await cloudinary.uploader.upload(gambars)
-    const { fullname, email, phonenumber, jobs, workplace, address, description, skill, active } = req.body
+    const {
+      fullname,
+      email,
+      phonenumber,
+      jobs,
+      workplace,
+      address,
+      description,
+      skill,
+      active,
+      idportfolio,
+      idexperience
+    } = req.body
     const data = {
       idemployee,
       fullname,
@@ -111,6 +124,8 @@ const updateProfileEmployee = async (req, res, next) => {
       skill: [skill],
       image: ress.url,
       active,
+      idportfolio,
+      idexperience,
       role: 'employee'
     }
     await updateProfile(data)
@@ -131,10 +146,28 @@ const changePasswordEmployee = (req, res, next) => {
       console.log(err)
     })
 }
+
+const getProfil = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+    const idemployee = decoded.id
+    console.log(idemployee)
+    const {
+      rows: [result]
+    } = await getprofil(idemployee)
+
+    commonHelper.response(res, result, 'Get profil data success', 200)
+  } catch (error) {
+    console.log(error)
+    next(createError)
+  }
+}
 module.exports = {
   register,
   login,
   refreshToken,
   updateProfileEmployee,
-  changePasswordEmployee
+  changePasswordEmployee,
+  getProfil
 }

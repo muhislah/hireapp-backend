@@ -31,6 +31,21 @@ const create = ({ idemployee, fullname, email, phonenumber, password, role }) =>
     )
   })
 }
+const getprofil = (idemployee) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      'SELECT employee.fullname,employee.email, employee.skill, employee.address,employee.description,portfolio.image,portfolio.nameapps,portfolio.respository,portfolio.type, work_experience.jobdescription,work_experience.monthyear,work_experience.namecompany,work_experience.position FROM employee INNER JOIN work_experience ON employee.idexperience = work_experience.idexperience INNER JOIN portfolio ON employee.idportfolio = portfolio.idportfolio WHERE employee.idemployee =$1',
+      [idemployee],
+      (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      }
+    )
+  })
+}
 
 const updateProfile = ({
   fullname,
@@ -44,11 +59,13 @@ const updateProfile = ({
   image,
   active,
   role,
+  idportfolio,
+  idexperience,
   idemployee
 }) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'UPDATE employee SET fullname = COALESCE($1, fullname), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), jobs = COALESCE($4, jobs), workplace = COALESCE($5, workplace), address = COALESCE($6, address), description = COALESCE($7, description), skill = COALESCE($8, skill), image = COALESCE($9, image), active = COALESCE($10, active), role = COALESCE($11, role) WHERE idemployee = $12',
+      'UPDATE employee SET fullname = COALESCE($1, fullname), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), jobs = COALESCE($4, jobs), workplace = COALESCE($5, workplace), address = COALESCE($6, address), description = COALESCE($7, description), skill = COALESCE($8, skill), image = COALESCE($9, image), active = COALESCE($10, active), role = COALESCE($11, role), idportfolio = COALESCE($12, idportfolio), idexperience = COALESCE($13, idexperience) WHERE idemployee = $14',
       [
         fullname,
         email,
@@ -61,6 +78,8 @@ const updateProfile = ({
         image,
         active,
         role,
+        idportfolio,
+        idexperience,
         idemployee
       ],
       (err, result) => {
@@ -105,5 +124,6 @@ module.exports = {
   findByEmail,
   create,
   updateProfile,
-  changePassword
+  changePassword,
+  getprofil
 }
