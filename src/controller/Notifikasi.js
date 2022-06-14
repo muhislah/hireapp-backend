@@ -9,7 +9,8 @@ const nofitikasiController = {
       .then(({ rows }) => {
         common.response(res, rows, 'notifikasi anda', 200)
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error)
         next(createError)
       })
   }
