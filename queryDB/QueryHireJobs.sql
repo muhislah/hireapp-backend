@@ -1,17 +1,16 @@
 CREATE TABLE employee (
-     id_employee INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+     idemployee INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
      fullname VARCHAR(200) NOT NULL,
      password VARCHAR(300) NOT NULL,
      email VARCHAR(300) NOT NULL,
      phonenumber numeric NOT NULL,
      jobs TEXT DEFAULT NULL,
-     work_place TEXT  DEFAULT NULL,
+     workplace TEXT  DEFAULT NULL,
      address TEXT DEFAULT NULL,
      description TEXT DEFAULT NULL,
      skill VARCHAR(300) DEFAULT NULL,
      image VARCHAR(300) ,
      active VARCHAR(50),
-<<<<<<< HEAD
      idCompany INT ,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -24,13 +23,6 @@ VALUES ('wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development
 ('dwi','dwi888','dwi@gmail.com',0865352282929,'frontend','pijar sekolah',' akhir jalan','profil.png','selalu istiqomah','java, sprintbot, pwa',2),
 ('purwanto','purwanto233','purwanto@gmail.com',082736289329,'backend','tokopedia','jalan menggok','profil.png','selalu istiqomah','java, sprintbot, pwa',2)
 
-=======
-     role VARCHAR(50),
-     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-INSERT INTO employee(id_employee, fullname, password, email, phonenumber, jobs, work_place, address, skill)VALUES(1, 'budi', 'budi123', 'budi123@gmail.com', 08131510777, 'web developer', 'jakarta', 'jakarta', 'javascript');
->>>>>>> b23f705
 
 CREATE TABLE company (
      idCompany VARCHAR(200) NOT NULL PRIMARY KEY,
@@ -62,12 +54,12 @@ VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software
 ('id-cpny-1','purwanto','purwanto233','purwanto@gmail.com',082736289329,'backend','tokopedia','jalan menggok','profil.png','selalu istiqomah','PT abal-abal')
 
 CREATE TABLE work_experience (
-     id_experience INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+     idexperience INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
      position VARCHAR(300) NOT NULL,
-     name_company VARCHAR(200) NOT NULL,
-     month_year VARCHAR(200) NOT NULL,
-     job_description TEXT NOT NULL,
-     id_employee INT,
+     namecompany VARCHAR(200) NOT NULL,
+     monthyear VARCHAR(200) NOT NULL,
+     jobdescription TEXT NOT NULL,
+     idemployee INT,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -97,3 +89,25 @@ VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software
 
 
 SELECT * FROM employee INNER JOIN work_experience ON employee.idexperience = work_experience.idexperience INNER JOIN portfolio ON employee.idportfolio = portfolio.idportfolio WHERE employee.idemployee = 'ad3506a1-2c9a-46c1-8daf-ea1efb5fec0c';
+
+
+
+CREATE TABLE employee (
+     idemployee VARCHAR(70) NOT NULL PRIMARY KEY,
+     fullname VARCHAR(200) NOT NULL,
+     password VARCHAR(300) NOT NULL,
+     email VARCHAR(300) NOT NULL,
+     phonenumber numeric NOT NULL,
+     jobs TEXT DEFAULT NULL,
+     workplace TEXT  DEFAULT NULL,
+     address TEXT DEFAULT NULL,
+     description TEXT DEFAULT NULL,
+     skill VARCHAR(300) DEFAULT NULL,
+     image VARCHAR(300) ,
+     active VARCHAR(50),
+     role VARCHAR(50),
+     idexperience VARCHAR(70),
+     idportfolio VARCHAR(70),
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
