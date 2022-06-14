@@ -12,6 +12,8 @@ CREATE TABLE employee (
      image VARCHAR(300) ,
      active VARCHAR(50),
      role VARCHAR(50),
+     id_experience VARCHAR(70),
+     id_portfolio VARCHAR(70),
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

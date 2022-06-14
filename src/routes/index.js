@@ -6,8 +6,8 @@ const authRouter = require('./authEmployee')
 const workExperienceRouter = require('./workExperience')
 
 router
-    .use('/employee', employeeRouter)
-    .use('/auth', authRouter)
-    .use('/work-experience', workExperienceRouter)
+  .use('/employee', employeeRouter)
+  .use('/auth', authRouter)
+  .use('/work-experience', workExperienceRouter)
 
 module.exports = router
