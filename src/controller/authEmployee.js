@@ -153,11 +153,9 @@ const getProfil = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
     const idemployee = decoded.id
     console.log(idemployee)
-    const {
-      rows: [result]
-    } = await getprofil(idemployee)
+    const result = await getprofil(idemployee)
 
-    commonHelper.response(res, result, 'Get profil data success', 200)
+    commonHelper.response(res, result.rows, 'Get profil data success', 200)
   } catch (error) {
     console.log(error)
     next(createError)
