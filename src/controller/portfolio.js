@@ -2,6 +2,7 @@ const { portfolioModel } = require('../models/portfolio')
 const createError = require('http-errors')
 const common = require('../helper/common')
 const cloudinary = require('../helper/cloudinary')
+const jwt = require('jsonwebtoken')
 
 const cloudinaryImageUploadMethod = async (file) => {
   return new Promise((resolve) => {
@@ -28,9 +29,9 @@ const portfolioController = {
   },
   CreatePortfolio: async (req, res, next) => {
     try {
-      const gambars = req.files[0].path
-      const ress = await cloudinary.uploader.upload(gambars)
-      console.log(ress)
+      // const gambars = req.files[0].path
+      // const ress = await cloudinary.uploader.upload(gambars)
+      // console.log(ress)
       const urls = []
       const files = req.files
       for (const file of files) {
@@ -38,7 +39,10 @@ const portfolioController = {
         const newPath = await cloudinaryImageUploadMethod(path)
         urls.push(newPath)
       }
-      const { nameApps, respository, type, idEmployee } = req.body
+      const token = req.headers.authorization.split(' ')[1]
+      const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+      const idEmployee = decoded.id
+      const { nameApps, respository, type } = req.body
       const data = {
         nameApps,
         respository,
@@ -46,6 +50,7 @@ const portfolioController = {
         image: urls.map((url) => url.res),
         idEmployee
       }
+      console.log(data)
       // console.log(cloudinary.uploader.upload(data.image))
       portfolioModel.insert({ ...data }).then(() => {
         common.response(res, data, 'data success create', 200)
@@ -67,7 +72,10 @@ const portfolioController = {
         const newPath = await cloudinaryImageUploadMethod(path)
         urls.push(newPath)
       }
-      const { nameApps, respository, type, idEmployee } = req.body
+      const { nameApps, respository, type } = req.body
+      const token = req.headers.authorization.split(' ')[1]
+      const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+      const idEmployee = decoded.id
       const data = {
         nameApps,
         respository,

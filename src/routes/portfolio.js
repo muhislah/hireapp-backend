@@ -1,24 +1,22 @@
 const express = require('express')
 const Router = express.Router()
 const { portfolioController } = require('../controller/portfolio')
-const { protect, isCompany } = require('../middlewares/auth')
+const { protect } = require('../middlewares/authEmployee')
 const uploadImg = require('../middlewares/uploadFile')
 
 Router.get('/', portfolioController.getPortfolio)
   .post(
     '/',
     protect,
-    isCompany,
     uploadImg.multipleUpload,
     portfolioController.CreatePortfolio
   )
   .put(
     '/:id',
     protect,
-    isCompany,
     uploadImg.multipleUpload,
     portfolioController.updatePortoflio
   )
-  .delete('/:id', protect, isCompany, portfolioController.deletePortfolio)
+  .delete('/:id', protect, portfolioController.deletePortfolio)
 
 module.exports = Router

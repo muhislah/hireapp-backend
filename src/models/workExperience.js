@@ -1,10 +1,16 @@
 const pool = require('../config/db')
 
-const create = ({ position, namecompany, monthyear, jobdescription }) => {
+const create = ({
+  position,
+  namecompany,
+  monthyear,
+  jobdescription,
+  idemployee
+}) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'INSERT INTO work_experience(position, namecompany, monthyear, jobdescription)VALUES($1, $2, $3, $4)',
-      [position, namecompany, monthyear, jobdescription],
+      'INSERT INTO work_experience(position, namecompany, monthyear, jobdescription,idemployee)VALUES($1, $2, $3, $4,$5)',
+      [position, namecompany, monthyear, jobdescription, idemployee],
       (err, result) => {
         if (!err) {
           resolve(result)
@@ -15,11 +21,25 @@ const create = ({ position, namecompany, monthyear, jobdescription }) => {
     )
   })
 }
-const update = ({ position, namecompany, monthyear, jobdescription, idexperience }) => {
+const update = ({
+  position,
+  namecompany,
+  monthyear,
+  jobdescription,
+  idexperience,
+  idemployee
+}) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'UPDATE work_experience SET position = COALESCE($1, position), namecompany = COALESCE($2, namecompany), monthyear = COALESCE($3, monthyear), jobdescription = COALESCE($4, jobdescription) WHERE idexperience = $5',
-      [position, namecompany, monthyear, jobdescription, idexperience],
+      'UPDATE work_experience SET position = COALESCE($1, position), namecompany = COALESCE($2, namecompany), monthyear = COALESCE($3, monthyear), jobdescription = COALESCE($4, jobdescription),idemployee = COALESCE($5, idemployee) WHERE idexperience = $6',
+      [
+        position,
+        namecompany,
+        monthyear,
+        jobdescription,
+        idexperience,
+        idemployee
+      ],
       (err, result) => {
         if (!err) {
           resolve(result)

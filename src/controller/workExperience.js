@@ -1,15 +1,23 @@
 const commonHelper = require('../helper/common')
 const workExperienceModel = require('../models/workExperience')
 const createError = require('http-errors')
+const jwt = require('jsonwebtoken')
+
 exports.createWorkExperience = async (req, res, next) => {
   try {
-    const { position, namecompany, monthyear, jobdescription } = req.body
+    const { position, namecompany, monthyear, jobdescription } =
+      req.body
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+    const idemployee = decoded.id
     const data = {
       position,
       namecompany,
       monthyear,
-      jobdescription
+      jobdescription,
+      idemployee
     }
+
     await workExperienceModel.create(data)
     commonHelper.response(res, data, 'create data success', 201)
   } catch (error) {
@@ -22,12 +30,16 @@ exports.updateWorkExperience = async (req, res, next) => {
     const idexperience = req.params.idexperience
     console.log(idexperience)
     const { position, namecompany, monthyear, jobdescription } = req.body
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+    const idemployee = decoded.id
     const data = {
       idexperience,
       position,
       namecompany,
       monthyear,
-      jobdescription
+      jobdescription,
+      idemployee
     }
     await workExperienceModel.update({ ...data, idexperience })
     console.log(data)

@@ -38,14 +38,14 @@ const protect = (req, res, next) => {
 //   }
 //   next()
 // }
-const isCompany = (req, res, next) => {
-  if (req.decoded.role !== 'company') {
-    return next(createError(400, 'company only'))
-  }
-  next()
-}
+// const isCompany = (req, res, next) => {
+//   if (req.decoded.role !== 'company') {
+//     return next(createError(400, 'company only'))
+//   }
+//   next()
+// }
 
 module.exports = {
-  protect,
-  isCompany
+  protect
+  // isCompany
 }
