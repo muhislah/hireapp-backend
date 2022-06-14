@@ -28,34 +28,9 @@ const portfolioController = {
   },
   CreatePortfolio: async (req, res, next) => {
     try {
-      // const gambar = req.files.map((file) => {
-      //   return `http://${req.get('host')}/img/${file.filename}`
-      // })
-      // const gambar = req.files.map((file) => {
-      //   return file.path
-      // })
-      // const gambararray = toString(gambar)
-      // console.log(gambararray)
-      // console.log(gambar)
-      // const pictureFiles = req.files
-      // const multiplePicturePromise = pictureFiles.map((picture) =>
-      //   cloudinary.uploader.upload(picture.path)
-      // )
-      // const imageResponses = await Promise.all(multiplePicturePromise)
-      // console.log(...imageResponses.url)
-      // const uploder = async (path) => await cloudinary.uploads(path, 'Image')
-      // const uploder = await cloudinary.uploader.upload(req.files.filename)
       const gambars = req.files[0].path
       const ress = await cloudinary.uploader.upload(gambars)
       console.log(ress)
-      // const urls = []
-      // const files = req.files
-      // for (const file of files) {
-      //   const { path } = file
-      //   const newPath = await ress(path)
-      //   urls.push(newPath)
-      //   fs.unlinkSync(path)
-      // }
       const urls = []
       const files = req.files
       for (const file of files) {
@@ -63,10 +38,6 @@ const portfolioController = {
         const newPath = await cloudinaryImageUploadMethod(path)
         urls.push(newPath)
       }
-      // console.log(urls.map((url) => url.res))
-      // const images = await cloudinary.uploader.upload(req.files.filename)
-      // // console.log(images)
-      // console.log(req.files.filename)
       const { nameApps, respository, type, idEmployee } = req.body
       const data = {
         nameApps,

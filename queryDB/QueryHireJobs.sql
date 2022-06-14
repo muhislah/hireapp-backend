@@ -79,10 +79,13 @@ CREATE TABLE portfolio (
 CREATE TABLE hirejobs (
      idhirejob INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     status VARCHAR(300) NOT NULL,
-    idEmployee INT,
-    idCompany INT,
+    idEmployee VARCHAR(200),
+    idCompany VARCHAR(200),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 INSERT INTO company (id_company,fullname,password,email,phonenumber,position,company_field,address,image,company_description,company) 
 VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','PT. serba guna.com'),
+
+
+SELECT * FROM employee INNER JOIN work_experience ON employee.idexperience = work_experience.idexperience INNER JOIN portfolio ON employee.idportfolio = portfolio.idportfolio WHERE employee.idemployee = 'ad3506a1-2c9a-46c1-8daf-ea1efb5fec0c';
