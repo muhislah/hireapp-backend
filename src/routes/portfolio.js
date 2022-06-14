@@ -4,7 +4,7 @@ const { portfolioController } = require('../controller/portfolio')
 const { protect, isCompany } = require('../middlewares/auth')
 const uploadImg = require('../middlewares/uploadFile')
 
-Router.get('/', protect, portfolioController.getPortfolio)
+Router.get('/', portfolioController.getPortfolio)
   .post(
     '/',
     protect,
