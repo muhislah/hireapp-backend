@@ -59,7 +59,7 @@ CREATE TABLE work_experience (
      namecompany VARCHAR(200) NOT NULL,
      monthyear VARCHAR(200) NOT NULL,
      jobdescription TEXT NOT NULL,
-     idemployee INT,
+     idemployee VARCHAR(200),
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -71,7 +71,7 @@ CREATE TABLE portfolio (
     respository VARCHAR(200) NOT NULL,
     type  VARCHAR(200) DEFAULT NULL,
     image VARCHAR(200) [],
-    idEmployee INT,
+    idEmployee VARCHAR(200),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -106,8 +106,8 @@ CREATE TABLE employee (
      image VARCHAR(300) ,
      active VARCHAR(50),
      role VARCHAR(50),
-     idexperience VARCHAR(70),
-     idportfolio VARCHAR(70),
+     idexperience INT,
+     idportfolio INT,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )

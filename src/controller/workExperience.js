@@ -3,13 +3,14 @@ const workExperienceModel = require('../models/workExperience')
 const createError = require('http-errors')
 exports.createWorkExperience = async (req, res, next) => {
   try {
-    const { position, namecompany, monthyear, jobdescription } = req.body
+    const { position, namecompany, monthyear, jobdescription,idemployee } = req.body
     const data = {
       position,
       namecompany,
       monthyear,
-      jobdescription
-    }
+      jobdescription,
+      idemployee
+    };
     await workExperienceModel.create(data)
     commonHelper.response(res, data, 'create data success', 201)
   } catch (error) {

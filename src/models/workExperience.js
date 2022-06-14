@@ -1,20 +1,26 @@
 const pool = require('../config/db')
 
-const create = ({ position, namecompany, monthyear, jobdescription }) => {
+const create = ({
+  position,
+  namecompany,
+  monthyear,
+  jobdescription,
+  idemployee,
+}) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'INSERT INTO work_experience(position, namecompany, monthyear, jobdescription)VALUES($1, $2, $3, $4)',
-      [position, namecompany, monthyear, jobdescription],
+      "INSERT INTO work_experience(position, namecompany, monthyear, jobdescription,idemployee)VALUES($1, $2, $3, $4,$5)",
+      [position, namecompany, monthyear, jobdescription, idemployee],
       (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve(result);
         } else {
-          reject(new Error(err))
+          reject(new Error(err));
         }
       }
-    )
-  })
-}
+    );
+  });
+};
 const update = ({ position, namecompany, monthyear, jobdescription, idexperience }) => {
   return new Promise((resolve, reject) => {
     pool.query(
