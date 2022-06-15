@@ -40,15 +40,21 @@ exports.getEmploye = async (req, res, next) => {
   }
 }
 
-exports.getDetailEmployee = (req, res, next) => {
-  const idemployee = req.params.idemployee
-  employeeModel
-    .selectDetailEmployee(idemployee)
-    .then((data) => {
-      commonHelper.response(res, data, 'Get detail data success', 200)
-    })
-    .catch((error) => {
-      console.log(error)
-      next(createHttpError)
-    })
+exports.getDetailEmployee = async(req, res, next) => {
+try {
+  
+    const idemployee = req.params.idemployee;
+    const experience = await employeeModel.selectExperience(idemployee);
+    const employee = await employeeModel.selectemployes(idemployee);
+    const folio = await employeeModel.selectPortfolio(idemployee);
+    const data = {
+      employee,
+      experience: experience.rows,
+      folio: folio,
+    };
+    commonHelper.response(res, data, "Get detail data success", 200);
+} catch (error) {
+  next(createHttpError)
+}
+
 }

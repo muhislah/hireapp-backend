@@ -9,7 +9,7 @@ router
   .post('/register', register)
   .post('/login', login)
   .post('/refresh-token', refreshToken)
-  .put('/:idemployee', upload.singleUpload, updateProfileEmployee)
+  .put('/update-profil', upload.singleUpload, updateProfileEmployee)
   .post('/change-password', changePasswordEmployee)
 
 module.exports = router

@@ -60,12 +60,12 @@ const updateProfile = ({
   active,
   role,
   idportfolio,
-  idexperience,
+  idexperience,instagram,github,
   idemployee
 }) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'UPDATE employee SET fullname = COALESCE($1, fullname), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), jobs = COALESCE($4, jobs), workplace = COALESCE($5, workplace), address = COALESCE($6, address), description = COALESCE($7, description), skill = COALESCE($8, skill), image = COALESCE($9, image), active = COALESCE($10, active), role = COALESCE($11, role), idportfolio = COALESCE($12, idportfolio), idexperience = COALESCE($13, idexperience) WHERE idemployee = $14',
+      "UPDATE employee SET fullname = COALESCE($1, fullname), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), jobs = COALESCE($4, jobs), workplace = COALESCE($5, workplace), address = COALESCE($6, address), description = COALESCE($7, description), skill = COALESCE($8, skill), image = COALESCE($9, image), active = COALESCE($10, active), role = COALESCE($11, role), idportfolio = COALESCE($12, idportfolio), idexperience = COALESCE($13, idexperience),instagram = COALESCE($14, instagram),github = COALESCE($15, github) WHERE idemployee = $16",
       [
         fullname,
         email,
@@ -80,16 +80,18 @@ const updateProfile = ({
         role,
         idportfolio,
         idexperience,
-        idemployee
+        instagram,
+        github,
+        idemployee,
       ],
       (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve(result);
         } else {
-          reject(new Error(err))
+          reject(new Error(err));
         }
       }
-    )
+    );
   })
 }
 const changePassword = (body) => {

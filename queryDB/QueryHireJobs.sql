@@ -90,7 +90,7 @@ VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software
 
 SELECT * FROM employee INNER JOIN work_experience ON employee.idexperience = work_experience.idexperience INNER JOIN portfolio ON employee.idportfolio = portfolio.idportfolio WHERE employee.idemployee = 'ad3506a1-2c9a-46c1-8daf-ea1efb5fec0c';
 
-
+SELECT * FROM work_experience INNER JOIN portfolio ON employee.idemployee = work_experience.idemployee INNER JOIN portfolio ON employee.idemployee = portfolio.idemployee WHERE employee.idemployee =$1
 
 CREATE TABLE employee (
      idemployee VARCHAR(70) NOT NULL PRIMARY KEY,

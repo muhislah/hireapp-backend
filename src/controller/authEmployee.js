@@ -95,7 +95,10 @@ const refreshToken = (req, res, next) => {
 
 const updateProfileEmployee = async (req, res, next) => {
   try {
-    const idemployee = req.params.idemployee
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT2);
+    const idemployee = decoded.id;
+    console.log(idemployee)
     const gambars = req.file.path
     // console.log(req.file)
     const ress = await cloudinary.uploader.upload(gambars)
@@ -109,11 +112,10 @@ const updateProfileEmployee = async (req, res, next) => {
       description,
       skill,
       active,
-      idportfolio,
+      idportfolio,instagram,github,
       idexperience
     } = req.body
     const data = {
-      idemployee,
       fullname,
       email,
       phonenumber,
@@ -121,14 +123,16 @@ const updateProfileEmployee = async (req, res, next) => {
       workplace,
       address,
       description,
-      skill: [skill],
+      skill: skill,
       image: ress.url,
       active,
       idportfolio,
+      instagram,
+      github,
       idexperience,
-      role: 'employee'
-    }
-    await updateProfile(data)
+      role: "employee",
+    };
+    await updateProfile({...data,idemployee})
     commonHelper.response(res, data, 'update user success', 201)
   } catch (error) {
     console.log(error)
