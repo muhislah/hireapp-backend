@@ -109,7 +109,7 @@ const updateProfileEmployee = async (req, res, next) => {
       description,
       skill,
       active,
-      idportfolio,
+      idportfolio,instagram,github,
       idexperience
     } = req.body
     const data = {
@@ -125,9 +125,11 @@ const updateProfileEmployee = async (req, res, next) => {
       image: ress.url,
       active,
       idportfolio,
+      instagram,
+      github,
       idexperience,
-      role: 'employee'
-    }
+      role: "employee",
+    };
     await updateProfile(data)
     commonHelper.response(res, data, 'update user success', 201)
   } catch (error) {
