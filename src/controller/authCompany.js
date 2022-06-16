@@ -101,20 +101,30 @@ const authCompany = {
   },
   profil: async (req, res, next) => {
     try {
-      const email = req.decoded.email
-      const {
-        rows: [user]
-      } = await authModel.FindEmail(email)
-      const data = {
-        name: user.fullname,
-        email: user.email,
-        phone_number: user.phonenumber,
-        company: user.company,
-        position: user.position
-      }
-      delete user.password
+      // const email = req.decoded.email
+      // const {
+      //   rows: [user]
+      // } = await authModel.FindEmail(email)
+      // const data = {
+      //   name: user.fullname,
+      //   email: user.email,
+      //   phone_number: user.phonenumber,
+      //   company: user.company,
+      //   position: user.position
+      // }
+      // delete user.password
       // commonHellper.response(res, user, 'Uppsstt email sudah ada', 200)
-      common.response(res, data, `anda berada di profil ${user.fullname}`, 200)
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
+      const idcompany = decoded.id;
+        console.log(idcompany);
+        const result = await authModel.getProfil(idcompany);
+      common.response(
+        res,
+        result,
+        `anda berada di profil `,
+        200
+      );
     } catch (error) {
       console.log(error)
       next(createError)

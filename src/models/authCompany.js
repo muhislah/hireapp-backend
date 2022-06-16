@@ -7,17 +7,32 @@ const authModel = {
   FindEmail: (email) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'SELECT * FROM company WHERE email = $1',
+        "SELECT * FROM company WHERE email = $1",
         [email],
         (err, result) => {
           if (!err) {
-            resolve(result)
+            resolve(result);
           } else {
-            reject(err)
+            reject(err);
           }
         }
-      )
-    })
+      );
+    });
+  },
+  getProfil: (idcompany) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "SELECT * FROM company WHERE idcompany = $1",
+        [idcompany],
+        (err, result) => {
+          if (!err) {
+            resolve(result.rows);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
   },
   create: ({
     idCompany,
@@ -27,11 +42,11 @@ const authModel = {
     company,
     phonenumber,
     position,
-    role
+    role,
   }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'INSERT INTO company (idCompany, fullname, password, email,  company,phonenumber,position,role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        "INSERT INTO company (idCompany, fullname, password, email,  company,phonenumber,position,role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)",
         [
           idCompany,
           fullname,
@@ -40,32 +55,32 @@ const authModel = {
           company,
           phonenumber,
           position,
-          role
+          role,
         ],
         (err, result) => {
           if (!err) {
-            resolve(result)
+            resolve(result);
           } else {
-            reject(new Error('data error disini'))
+            reject(new Error("data error disini"));
           }
         }
-      )
-    })
+      );
+    });
   },
-  activasi: ({ active = '1', email }) => {
+  activasi: ({ active = "1", email }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'UPDATE users SET active = $1 where email = $2',
+        "UPDATE company SET active = $1 where email = $2",
         [active, email],
         (err, result) => {
           if (!err) {
-            resolve(result)
+            resolve(result);
           } else {
-            reject(new Error('data error disini'))
+            reject(new Error("data error disini"));
           }
         }
-      )
-    })
+      );
+    });
   },
   updateProfil: ({
     fullname,
@@ -80,7 +95,7 @@ const authModel = {
     image,
     instagram,
     linkedin,
-    idcompany
+    idcompany,
   }) => {
     return new Promise((resolve, reject) => {
       db.query(
@@ -110,52 +125,52 @@ const authModel = {
           image,
           instagram,
           linkedin,
-          idcompany
+          idcompany,
         ],
         (err, result) => {
           if (!err) {
-            resolve(result.rows)
+            resolve(result.rows);
           } else {
-            reject(new Error(err))
+            reject(new Error(err));
           }
         }
-      )
-    })
+      );
+    });
   },
   changePassword: (body) => {
     return new Promise((resolve, reject) => {
-      const qs = 'SELECT email FROM company WHERE idCompany = $1'
+      const qs = "SELECT email FROM company WHERE idCompany = $1";
       db.query(qs, [body.idCompany], (_err, data) => {
-        console.log(data)
+        console.log(data);
         if (!data.rows[0]) {
           bcrypt.genSalt(10, (_err, salt) => {
             if (_err) {
-              reject(_err)
+              reject(_err);
             }
-            const { password, email } = body
+            const { password, email } = body;
 
             bcrypt.hash(password, salt, (err, hashedPassword) => {
               if (err) {
-                reject(err)
+                reject(err);
               }
               const queryString =
-                'UPDATE company SET password= $1 WHERE email = $2'
+                "UPDATE company SET password= $1 WHERE email = $2";
               db.query(queryString, [hashedPassword, email], (err, data) => {
                 if (!err) {
-                  resolve({ msg: 'change password success' })
+                  resolve({ msg: "change password success" });
                 } else {
-                  reject(err)
+                  reject(err);
                 }
-              })
-            })
-          })
+              });
+            });
+          });
         } else {
-          reject(_err)
+          reject(_err);
         }
-      })
-    })
-  }
-}
+      });
+    });
+  },
+};
 
 module.exports = {
   authModel
