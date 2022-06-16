@@ -2,9 +2,9 @@ const nodemailer = require('nodemailer')
 // const { google } = require('googleapis')
 // const config = require('../config/oauth')
 const jwt = require('jsonwebtoken')
-const text = require('../helpers/textEmail')
+const text = require('../helper/textEmail')
 
-const sendMail = async ({ email, name, role }) => {
+const sendMail = async ({ email, fullname, role }) => {
   try {
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -30,16 +30,12 @@ const sendMail = async ({ email, name, role }) => {
     //     pass: 'purwanto2508' // generated ethereal password
     //   }
     // })
-    const token = jwt.sign(
-      { email, name, role },
-      process.env.SECRET_KEY,
-      {
-        expiresIn: '24h'
-      }
-    )
+    const token = jwt.sign({ email, fullname, role }, process.env.SECRET_KEY, {
+      expiresIn: '24h'
+    })
 
     const info = await transporter.sendMail({
-      from: '"Belanjain Aja" <wahyu.aan2508@gmail.com>',
+      from: '"HIRE JOBS BRO" <wahyu.aan2508@gmail.com>',
       to: email,
       subject: 'Hello ✔',
       html: text(token)

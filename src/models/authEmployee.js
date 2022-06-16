@@ -16,11 +16,19 @@ const findByEmail = (email) => {
   })
 }
 
-const create = ({ idemployee, fullname, email, phonenumber, password, role }) => {
+const create = ({
+  idemployee,
+  fullname,
+  email,
+  phonenumber,
+  password,
+  role,
+  active = 0
+}) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'INSERT INTO employee(idemployee, fullname, email, phonenumber, password, role)VALUES($1, $2, $3, $4, $5, $6)',
-      [idemployee, fullname, email, phonenumber, password, role],
+      'INSERT INTO employee(idemployee, fullname, email, phonenumber, password, role, active)VALUES($1, $2, $3, $4, $5, $6,$7)',
+      [idemployee, fullname, email, phonenumber, password, role, active],
       (err, result) => {
         if (!err) {
           resolve(result)
@@ -46,6 +54,21 @@ const getprofil = (idemployee) => {
     )
   })
 }
+const activasi = ({ active = '1', email }) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      'UPDATE employee SET active = $1 where email = $2',
+      [active, email],
+      (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error('data error disini'))
+        }
+      }
+    )
+  })
+}
 
 const updateProfile = ({
   fullname,
@@ -60,12 +83,12 @@ const updateProfile = ({
   active,
   role,
   idportfolio,
-  idexperience,instagram,github,
+  idexperience, instagram, github,
   idemployee
 }) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      "UPDATE employee SET fullname = COALESCE($1, fullname), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), jobs = COALESCE($4, jobs), workplace = COALESCE($5, workplace), address = COALESCE($6, address), description = COALESCE($7, description), skill = COALESCE($8, skill), image = COALESCE($9, image), active = COALESCE($10, active), role = COALESCE($11, role), idportfolio = COALESCE($12, idportfolio), idexperience = COALESCE($13, idexperience),instagram = COALESCE($14, instagram),github = COALESCE($15, github) WHERE idemployee = $16",
+      'UPDATE employee SET fullname = COALESCE($1, fullname), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), jobs = COALESCE($4, jobs), workplace = COALESCE($5, workplace), address = COALESCE($6, address), description = COALESCE($7, description), skill = COALESCE($8, skill), image = COALESCE($9, image), active = COALESCE($10, active), role = COALESCE($11, role), idportfolio = COALESCE($12, idportfolio), idexperience = COALESCE($13, idexperience),instagram = COALESCE($14, instagram),github = COALESCE($15, github) WHERE idemployee = $16',
       [
         fullname,
         email,
@@ -82,16 +105,16 @@ const updateProfile = ({
         idexperience,
         instagram,
         github,
-        idemployee,
+        idemployee
       ],
       (err, result) => {
         if (!err) {
-          resolve(result);
+          resolve(result)
         } else {
-          reject(new Error(err));
+          reject(new Error(err))
         }
       }
-    );
+    )
   })
 }
 const changePassword = (body) => {
@@ -127,5 +150,6 @@ module.exports = {
   create,
   updateProfile,
   changePassword,
-  getprofil
+  getprofil,
+  activasi
 }

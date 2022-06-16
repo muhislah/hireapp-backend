@@ -123,14 +123,14 @@ const text = (token) => {
                                   <tbody>
                                     <!-- <tr>
                                         <td colspan="3">Username :</td>
-                                        <td colspan="3" style="text-align: center">{{username}}</td>
+                                        <td colspan="3" style="text-align: center">{{fullname}}</td>
                                     </tr> -->
                                     <!-- <tr>
                                         <td colspan="3">Password :</td>
                                         <td colspan="3" style="background-color: #e3fcef; text-align: center">{{password}}</td>
                                     </tr> -->
                                     <tr>
-                                      <td colspan="6" style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="http://localhost:4000/v1/auth/activasi/${token}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Activasi</a> </td>
+                                      <td colspan="6" style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="http://hire-jobs.herokuapp.com/authCompany/activasi/${token}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Activasi</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>

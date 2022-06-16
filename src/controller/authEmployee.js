@@ -2,10 +2,11 @@ const bcrypt = require('bcryptjs')
 const { v4: uuidv4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const createError = require('http-errors')
-const { findByEmail, create, updateProfile, changePassword, getprofil } = require('../models/authEmployee')
+const { findByEmail, create, updateProfile, changePassword, getprofil, activasi } = require('../models/authEmployee')
 const commonHelper = require('../helper/common')
 const authHelper = require('../helper/authEmployee')
 const cloudinary = require('../helper/cloudinary')
+const { sendMail } = require('../helper/sendEmail')
 
 const register = async (req, res, next) => {
   try {
@@ -18,14 +19,17 @@ const register = async (req, res, next) => {
     if (rowCount) {
       return next(createError(403, 'user sudah terdaftar'))
     }
+    const role = 'employee'
     const data = {
       idemployee: uuidv4(),
       fullname,
       email,
       phonenumber,
       password: passwordHash,
-      role: 'employee'
+      role,
+      active: 0
     }
+    sendMail({ email, fullname, role })
     console.log(data)
     await create(data)
     commonHelper.response(res, data, 'User berhasil register', 200)
@@ -34,7 +38,44 @@ const register = async (req, res, next) => {
     next(createError())
   }
 }
+const activ = async (req, res, next) => {
+  try {
+    const token = req.params.token
+    const decoded = await jwt.verify(token, process.env.SECRET_KEY)
+    console.log(decoded)
+    const data = {
+      active: 1,
+      email: decoded.email,
+      role: decoded.role
+    }
 
+    await activasi(data)
+    const newPayload = {
+      email: decoded.email,
+      name: decoded.fullname,
+      role: decoded.role
+    }
+    console.log(newPayload)
+    // const newRefreshToken = await authHelper.generateRefreshToken(newPayload)
+    if (decoded.status === '1') {
+      return res.json({ message: 'akun anda sudah terverifikasi' })
+    }
+    const result = {
+      email: decoded.email,
+      name: decoded.name
+      // tokenNew: newRefreshToken
+    }
+    commonHelper.response(
+      res,
+      result,
+      'akun done verifikasi, silahkan login',
+      200
+    )
+  } catch (error) {
+    console.log(error)
+    next(createError)
+  }
+}
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body
@@ -42,7 +83,11 @@ const login = async (req, res, next) => {
       rows: [user]
     } = await findByEmail(email)
     console.log(user)
-
+    if (user.active === '0') {
+      return res.json({
+        message: ' anda belum verifikasi'
+      })
+    }
     if (!user) {
       return commonHelper.response(
         res,
@@ -95,9 +140,9 @@ const refreshToken = (req, res, next) => {
 
 const updateProfileEmployee = async (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT);
-    const idemployee = decoded.id;
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+    const idemployee = decoded.id
     console.log(idemployee)
     const gambars = req.file.path
     // console.log(req.file)
@@ -112,7 +157,7 @@ const updateProfileEmployee = async (req, res, next) => {
       description,
       skill,
       active,
-      idportfolio,instagram,github,
+      idportfolio, instagram, github,
       idexperience
     } = req.body
     const data = {
@@ -123,16 +168,16 @@ const updateProfileEmployee = async (req, res, next) => {
       workplace,
       address,
       description,
-      skill: skill,
+      skill,
       image: ress.url,
       active,
       idportfolio,
       instagram,
       github,
       idexperience,
-      role: "employee",
-    };
-    await updateProfile({...data,idemployee})
+      role: 'employee'
+    }
+    await updateProfile({ ...data, idemployee })
     commonHelper.response(res, data, 'update user success', 201)
   } catch (error) {
     console.log(error)
@@ -171,5 +216,6 @@ module.exports = {
   refreshToken,
   updateProfileEmployee,
   changePasswordEmployee,
-  getProfil
+  getProfil,
+  activ
 }
