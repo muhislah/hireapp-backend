@@ -40,9 +40,8 @@ exports.getEmploye = async (req, res, next) => {
   }
 }
 
-exports.getDetailEmployee = async(req, res, next) => {
-try {
-  
+exports.getDetailEmployee = async (req, res, next) => {
+  try {
     const idemployee = req.params.idemployee;
     const experience = await employeeModel.selectExperience(idemployee);
     const employee = await employeeModel.selectemployes(idemployee);
@@ -53,6 +52,16 @@ try {
       folio: folio,
     };
     commonHelper.response(res, data, "Get detail data success", 200);
+  } catch (error) {
+    next(createHttpError);
+  }
+};
+
+exports.getHomeEmployee = async(req, res, next) => {
+try {
+  
+    const result = await employeeModel.selecthomeEmployee();
+    commonHelper.response(res, result, "Get home data success", 200);
 } catch (error) {
   next(createHttpError)
 }

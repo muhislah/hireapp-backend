@@ -65,21 +65,20 @@ const selectDetailEmployee = (idemployee) => {
     );
   })
 }
-// const selectDetailEmployee = (idemployee) => {
-//   return new Promise((resolve, reject) => {
-//     pool.query(
-//       "SELECT employee.fullname,employee.email, employee.skill, employee.address,employee.description,portfolio.nameapps,portfolio.respository,portfolio.type, work_experience.jobdescription,work_experience.monthyear,work_experience.namecompany,work_experience.position, employee.image as image_profil, portfolio.image as image_portfolio FROM employee INNER JOIN work_experience ON employee.idemployee = work_experience.idemployee INNER JOIN portfolio ON employee.idemployee = portfolio.idemployee WHERE employee.idemployee =$1",
-//       [idemployee],
-//       (err, result) => {
-//         if (!err) {
-//           resolve(result.rows);
-//         } else {
-//           reject(new Error(err));
-//         }
-//       }
-//     );
-//   })
-// }
+const selecthomeEmployee = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "SELECT employee.fullname,employee.email, employee.skill, employee.address,employee.description,portfolio.nameapps,portfolio.respository,portfolio.type, work_experience.jobdescription,work_experience.monthyear,work_experience.namecompany,work_experience.position, employee.image as image_profil, portfolio.image as image_portfolio FROM employee INNER JOIN work_experience ON employee.idemployee = work_experience.idemployee INNER JOIN portfolio ON employee.idemployee = portfolio.idemployee",
+      (err, result) => {
+        if (!err) {
+          resolve(result.rows);
+        } else {
+          reject(new Error(err));
+        }
+      }
+    );
+  })
+}
 
 const countEmployee = () => {
   return new Promise((resolve, reject) => {
@@ -99,5 +98,6 @@ module.exports = {
   selectDetailEmployee,
   selectPortfolio,
   selectemployes,
-  selectExperience
+  selectExperience,
+  selecthomeEmployee,
 };
