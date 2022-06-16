@@ -18,7 +18,12 @@ const companyController = {
     modelCompany
       .getDetailCompany(idcompany)
       .then((result) => {
-        res.json(result);
+       common.response(
+         res,
+         result,
+         "get detail data success",
+         200
+       );
       })
       .catch((error) => {
         console.log(error);

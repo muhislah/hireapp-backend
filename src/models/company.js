@@ -34,8 +34,8 @@ const modelCompany = {
   },
   getDetailCompany: (idcompany) => {
    return new Promise((resolve, reject) => {
-     pool.query(
-       `SELECT * FROM portfolio WHERE idcompany = $1`,
+     db.query(
+       `SELECT * FROM company WHERE idcompany = $1`,
        [idcompany],
        (err, result) => {
          if (!err) {
