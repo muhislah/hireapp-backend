@@ -14,7 +14,7 @@ const companyController = {
       });
   },
   getDetailCompany: (req, res, next) => {
-    const idcompany = req.params.id
+    const idcompany = req.params.idcompany
     modelCompany
       .getDetailCompany(idcompany)
       .then((result) => {
