@@ -1,18 +1,24 @@
 const { hireJobModel } = require('../models/hirejobs')
 const createError = require('http-errors')
 const common = require('../helper/common')
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
 const HireController = {
   CreateHire: (req, res, next) => {
-    const { status, idEmployee } = req.body
-     const token = req.headers.authorization.split(" ")[1];
-     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-     const idcompany = decoded.id;
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.SECRET_KEY)
+    const idcompany = decoded.id
+    // const idEmploye = req.params.id
     const data = {
-      status,
-      idEmployee,
-      idcompany,
-    };
+      status: req.body.status || 0,
+      idEmployee: req.body.idEmploye,
+      hp: req.body.hp,
+      deskripsi: req.body.deskripsi,
+      tujuan: req.body.tujuan,
+      address: req.body.address,
+      email: req.body.email,
+      fullname: req.body.fullname,
+      idcompany
+    }
     hireJobModel
       .insert(data)
       .then(() => {

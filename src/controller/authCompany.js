@@ -29,11 +29,11 @@ const authCompany = {
           message: ' data yang anda inputkan salah'
         })
       }
-      if (user.active === '0') {
-        return res.json({
-          message: ' anda belum verifikasi'
-        })
-      }
+      // if (user.active === '0') {
+      //   return res.json({
+      //     message: ' anda belum verifikasi'
+      //   })
+      // }
       delete user.password
       const payload = {
         email: user.email,
@@ -93,7 +93,7 @@ const authCompany = {
       common.response(
         res,
         result,
-        'akun done verifikasi, silahkan login',
+        'akun anda sudah verifikasi sebagai company, silahkan login',
         200
       )
     } catch (error) {

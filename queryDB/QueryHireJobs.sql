@@ -90,7 +90,7 @@ VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software
 
 SELECT * FROM employee INNER JOIN work_experience ON employee.idexperience = work_experience.idexperience INNER JOIN portfolio ON employee.idportfolio = portfolio.idportfolio WHERE employee.idemployee = 'ad3506a1-2c9a-46c1-8daf-ea1efb5fec0c';
 
-SELECT * FROM work_experience INNER JOIN portfolio ON employee.idemployee = work_experience.idemployee INNER JOIN portfolio ON employee.idemployee = portfolio.idemployee WHERE employee.idemployee =$1
+SELECT * FROM work_experience INNER JOIN portfolio ON work_experience.idemployee = portfolio.idemployee WHERE employee.idemployee =$1
 
 CREATE TABLE employee (
      idemployee VARCHAR(70) NOT NULL PRIMARY KEY,
@@ -111,3 +111,91 @@ CREATE TABLE employee (
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
+
+
+CREATE TABLE food (
+     idfood INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+     title VARCHAR(200) NOT NULL,
+     image VARCHAR(300) DEFAULT NULL,
+     ingrediens VARCHAR(300) NOT NULL,
+     video VARCHAR(600) ,
+     idcoment INT ,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE users (
+      iduser VARCHAR(70) NOT NULL PRIMARY KEY,
+     fullname VARCHAR(200) NOT NULL,
+     password VARCHAR(300) NOT NULL,
+     email VARCHAR(300) NOT NULL,
+     phonenumber numeric NOT NULL,
+     image VARCHAR(300) ,
+     active VARCHAR(50),
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE comentar (
+      idcomentar INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+     comentar TEXT DEFAULT NULL,
+     iduser INT,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE simpan(
+      idsimpan INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+     iduser varchar(300) ,
+     idfood INT ,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO users(id,fullname,password,email,username) 
+VALUES ('4282d16f-720a-4512-8179-2b2501780134', 'wahyutitik','testing123','testing123@gmail.com','tutorialmp4');
+
+
+
+psql -U manxdniwzxwyiu -h ec2-52-22-136-117.compute-1.amazonaws.com -p 5432 -d deaserd2in9uj3
+
+
+ALTER TABLE food
+ADD iduser varchar(500)
+
+
+CREATE TABLE users (
+       id VARCHAR(70) NOT NULL PRIMARY KEY,
+     fullname VARCHAR(200) Default NULL,
+     password VARCHAR(300) NOT NULL,
+     email VARCHAR(300) NOT NULL,
+ username VARCHAR(300) Default NULL,
+     phone VARCHAR(300) DEFAULT NULL,
+     photo VARCHAR(300) ,
+  short_name VARCHAR(300) ,
+     active VARCHAR(50),
+     bio VARCHAR(500),
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE chats (
+       id INT DEFAULT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+     sender INT  DEFAULT NULL,
+     receiver INT  DEFAULT NULL,
+     chat_type VARCHAR(300) DEFAULT NULL,
+     message TEXT DEFAULT NULL,
+     date varchar(200) DEFAULT NULL,
+is_read INT ,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+psql -U hlqmulkbayltge -h ec2-44-198-82-71.compute-1.amazonaws.com -p 5432 -d d6v1jp9cocrlpn
+
+
+
+// telegrams
+psql -U hlqmulkbayltge -h ec2-44-198-82-71.compute-1.amazonaws.com -p 5432 -d d6v1jp9cocrlpn

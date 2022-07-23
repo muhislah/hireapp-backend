@@ -33,7 +33,7 @@ const sendMail = async ({ email, fullname, role }) => {
     const token = jwt.sign({ email, fullname, role }, process.env.SECRET_KEY, {
       expiresIn: '24h'
     })
-
+    // confirm.log(role);
     const info = await transporter.sendMail({
       from: '"HIRE JOBS BRO" <wahyu.aan2508@gmail.com>',
       to: email,

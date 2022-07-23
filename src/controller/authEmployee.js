@@ -68,7 +68,7 @@ const activ = async (req, res, next) => {
     commonHelper.response(
       res,
       result,
-      'akun done verifikasi, silahkan login',
+      'akun anda sudah verifikasi sebagai employee, silahkan login',
       200
     )
   } catch (error) {
@@ -83,11 +83,11 @@ const login = async (req, res, next) => {
       rows: [user]
     } = await findByEmail(email)
     console.log(user)
-    if (user.active === '0') {
-      return res.json({
-        message: ' anda belum verifikasi'
-      })
-    }
+    // if (user.active === '0') {
+    //   return res.json({
+    //     message: ' anda belum verifikasi'
+    //   })
+    // }
     if (!user) {
       return commonHelper.response(
         res,

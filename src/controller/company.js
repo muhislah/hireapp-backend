@@ -6,92 +6,92 @@ const companyController = {
     modelCompany
       .select()
       .then((result) => {
-        res.json(result);
+        res.json(result)
       })
       .catch((error) => {
-        console.log(error);
-        next(createError);
-      });
+        console.log(error)
+        next(createError)
+      })
   },
   getDetailCompany: (req, res, next) => {
     const idcompany = req.params.idcompany
     modelCompany
       .getDetailCompany(idcompany)
       .then((result) => {
-       common.response(
-         res,
-         result,
-         "get detail data success",
-         200
-       );
+        common.response(
+          res,
+          result,
+          'get detail data success',
+          200
+        )
       })
       .catch((error) => {
-        console.log(error);
-        next(createError);
-      });
+        console.log(error)
+        next(createError)
+      })
   },
   getCompanyByFilter: async (req, res, next) => {
     try {
-      const sort = req.query.sort;
-      const type = req.query.type;
-      const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 100;
-      const offset = (page - 1) * limit;
-      const search = req.query.search;
-      console.log(search);
-      console.log(type);
+      const sort = req.query.sort
+      const type = req.query.type
+      const page = parseInt(req.query.page) || 1
+      const limit = parseInt(req.query.limit) || 100
+      const offset = (page - 1) * limit
+      const search = req.query.search
+      console.log(search)
+      console.log(type)
       const result = await modelCompany.filterCompany({
         search,
         sort,
         type,
         limit,
-        offset,
-      });
+        offset
+      })
       const {
-        rows: [count],
-      } = await modelCompany.countCompany();
-      const totalData = parseInt(count.total);
-      const totalPage = Math.ceil(totalData / limit);
+        rows: [count]
+      } = await modelCompany.countCompany()
+      const totalData = parseInt(count.total)
+      const totalPage = Math.ceil(totalData / limit)
       const pagination = {
         currentPage: page,
         limit,
         totalData,
-        totalPage,
-      };
+        totalPage
+      }
       if (result.length === 0) {
         res.json({
-          msg: "data not found",
-        });
+          msg: 'data not found'
+        })
       }
       common.response(
         res,
         result.rows,
-        "get filter data success",
+        'get filter data success',
         200,
         pagination
-      );
+      )
       // res.status(200).json({
       //   data: result.rows,
       //   pagination,
       // });
     } catch (error) {
-      console.log(error);
-      next(createError);
+      console.log(error)
+      next(createError)
     }
   },
   getCompanyByEmployee: (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params.id
     modelCompany
       .CompanyByEmployee(id)
       .then((result) => {
-        common.response(res, result.rows, "data company by employee", 200);
+        common.response(res, result.rows, 'data company by employee', 200)
       })
       .catch((err) => {
-        console.log(err);
-        next(createError);
-      });
-  },
-};
+        console.log(err)
+        next(createError)
+      })
+  }
+}
 
 module.exports = {
   companyController
