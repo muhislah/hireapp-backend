@@ -18,7 +18,7 @@ const selectEmployee = ({ sortby, limit, offset, search, sort }) => {
 const selectemployes = (idemployee) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'SELECT  fullname, jobs, address, description, skill, email,instagram,github,image as image_profil FROM employee WHERE idemployee = $1',
+      'SELECT  idemployee,fullname, jobs, address, description, skill, email,instagram,github,image as image_profil FROM employee WHERE idemployee = $1',
       [idemployee],
       (err, result) => {
         if (!err) {
