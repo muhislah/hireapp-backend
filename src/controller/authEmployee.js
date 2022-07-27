@@ -207,7 +207,7 @@ const getProfil = async (req, res, next) => {
     const result = await getprofil(idemployee)
     const folio = await employeeModel.selectPortfolio(idemployee)
     const data = {
-      result: result.rows,
+      employee: result.rows,
       experience: experience.rows,
       folio
     }
