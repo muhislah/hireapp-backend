@@ -7,6 +7,7 @@ const commonHelper = require('../helper/common')
 const authHelper = require('../helper/authEmployee')
 const cloudinary = require('../helper/cloudinary')
 const { sendMail } = require('../helper/sendEmail')
+const employeeModel = require('../models/employee')
 
 const register = async (req, res, next) => {
   try {
@@ -202,9 +203,16 @@ const getProfil = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
     const idemployee = decoded.id
     console.log(idemployee)
+    const experience = await employeeModel.selectExperience(idemployee)
     const result = await getprofil(idemployee)
+    const folio = await employeeModel.selectPortfolio(idemployee)
+    const data = {
+      result: result.rows,
+      experience: experience.rows,
+      folio
+    }
 
-    commonHelper.response(res, result.rows, 'Get profil data success', 200)
+    commonHelper.response(res, data, 'Get profil data success', 200)
   } catch (error) {
     console.log(error)
     next(createError)

@@ -17,10 +17,12 @@ helmet({
   crossOriginResourcePolicy: false
 })
 app.use(
-    cors({
-        credentials : true,
-        origin : ["https://mamarecipe.herokuapp.com", "http://localhost:3000", "https://foodrecipefe.vercel.app"]
-    })
+  cors({
+    credentials: true,
+    origin: [
+      'http://localhost:3000'
+    ]
+  })
 )
 app.use(xss())
 app.disable('x-powered-by')
