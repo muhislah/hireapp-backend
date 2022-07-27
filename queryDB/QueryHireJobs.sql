@@ -79,11 +79,16 @@ CREATE TABLE portfolio (
 CREATE TABLE hirejobs (
      idhirejob INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     status VARCHAR(300) NOT NULL,
+	fullname VARCHAR(200),
+	 hp VARCHAR(200),
+	deskripsi VARCHAR(800),
+	tujuan VARCHAR(200),
+	email VARCHAR(200),
     idEmployee VARCHAR(200),
     idCompany VARCHAR(200),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
 INSERT INTO company (id_company,fullname,password,email,phonenumber,position,company_field,address,image,company_description,company) 
 VALUES ('id-cpny-1','wahyu','wahyu123','wahyu@gmail.com',0856546554654,'software development','tokopedia','jalan jalan','profil.png','pekerja keras tanpa lelah','PT. serba guna.com'),
 
@@ -172,22 +177,22 @@ CREATE TABLE users (
      email VARCHAR(300) NOT NULL,
  username VARCHAR(300) Default NULL,
      phone VARCHAR(300) DEFAULT NULL,
-     photo VARCHAR(300) ,
-  short_name VARCHAR(300) ,
-     active VARCHAR(50),
-     bio VARCHAR(500),
+     photo VARCHAR(300) DEFAULT NULL,
+  short_name VARCHAR(300) DEFAULT NULL,
+     active VARCHAR(50) DEFAULT NULL,
+     bio VARCHAR(500) DEFAULT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE chats (
-       id INT DEFAULT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-     sender INT  DEFAULT NULL,
-     receiver INT  DEFAULT NULL,
-     chat_type VARCHAR(300) DEFAULT NULL,
+        id VARCHAR(70) NOT NULL PRIMARY KEY,
+     sender VARCHAR(200)  DEFAULT NULL,
+     receiver VARCHAR(200) DEFAULT NULL,
+     chat_type varchar(200) DEFAULT NULL,
      message TEXT DEFAULT NULL,
      date varchar(200) DEFAULT NULL,
-is_read INT ,
+is_read varchar(200) ,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
