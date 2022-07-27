@@ -39,10 +39,25 @@ const create = ({
     )
   })
 }
-const getprofil = (idemployee) => {
+const getprofils = (idemployee) => {
   return new Promise((resolve, reject) => {
     pool.query(
       'SELECT employee.fullname,employee.email, employee.skill, employee.address,employee.description,portfolio.image,portfolio.nameapps,portfolio.respository,portfolio.type, work_experience.jobdescription,work_experience.monthyear,work_experience.namecompany,work_experience.position FROM employee INNER JOIN work_experience ON employee.idemployee = work_experience.idemployee INNER JOIN portfolio ON employee.idemployee = portfolio.idemployee WHERE employee.idemployee =$1',
+      [idemployee],
+      (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      }
+    )
+  })
+}
+const getprofil = (idemployee) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      'SELECT * from employee WHERE idemployee =$1',
       [idemployee],
       (err, result) => {
         if (!err) {
@@ -151,5 +166,6 @@ module.exports = {
   updateProfile,
   changePassword,
   getprofil,
-  activasi
+  activasi,
+  getprofils
 }

@@ -211,8 +211,8 @@ const getProfil = async (req, res, next) => {
       experience: experience.rows,
       folio
     }
-    console.log(data)
-    commonHelper.response(res, result, 'Get profil data success', 200)
+
+    commonHelper.response(res, data, 'Get profil data success', 200)
   } catch (error) {
     console.log(error)
     next(createError)
