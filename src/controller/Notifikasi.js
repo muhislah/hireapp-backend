@@ -1,11 +1,16 @@
 const { notifikasiModel } = require('../models/notifikasi')
 const createError = require('http-errors')
 const common = require('../helper/common')
+const jwt = require('jsonwebtoken')
 
 const nofitikasiController = {
+
   getNotifikasi: (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.SECRET_KEY)
+    const idcompany = decoded.id
     notifikasiModel
-      .getNotif()
+      .getNotif(idcompany)
       .then(({ rows }) => {
         common.response(res, rows, 'notifikasi anda', 200)
       })

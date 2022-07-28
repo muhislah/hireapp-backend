@@ -199,7 +199,8 @@ const authCompany = {
         instagram,
         linkedin,
         phonenumber,
-        company
+        company,
+        idcompany
       }
       console.log(data)
       authModel
