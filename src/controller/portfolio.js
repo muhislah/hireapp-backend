@@ -41,7 +41,7 @@ const portfolioController = {
       }
       const token = req.headers.authorization.split(' ')[1]
       const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
-      const idEmployee = decoded.id
+      const idEmployee = decoded.idemployee
       const { nameApps, respository, type } = req.body
       const data = {
         nameApps,
@@ -75,7 +75,7 @@ const portfolioController = {
       const { nameApps, respository, type } = req.body
       const token = req.headers.authorization.split(' ')[1]
       const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
-      const idEmployee = decoded.id
+      const idEmployee = decoded.idemployee
       const data = {
         nameApps,
         respository,
