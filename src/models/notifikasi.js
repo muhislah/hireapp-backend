@@ -9,7 +9,7 @@ const notifikasiModel = {
   //   }
   getNotif: (idemployee) => {
     return db.query(
-      'SELECT employee.description,employee.skill,employee.jobs,employee.address,employee.image AS imageEmployee FROM hirejobs INNER JOIN employee ON hirejobs.idemployee = employee.idemployee where employee.idemployee = $1',
+      'SELECT employee.fullname, employee.description,employee.skill,employee.jobs,employee.address,employee.image AS imageEmployee FROM hirejobs INNER JOIN employee ON hirejobs.idemployee = employee.idemployee where employee.idemployee = $1',
       [idemployee]
     )
   },
