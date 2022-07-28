@@ -12,11 +12,12 @@ const nofitikasiController = {
       const idcompany = decoded.idcompany
       const idemployee = decoded.idemployee
       console.log(idcompany)
+      console.log(idemployee)
       if (idemployee) {
         notifikasiModel
           .getNotif(idemployee)
           .then(({ rows }) => {
-            common.response(res, rows, 'notifikasi anda', 200)
+            common.response(res, rows, 'notifikasi anda employee', 200)
           })
           .catch((error) => {
             console.log(error)
@@ -27,7 +28,7 @@ const nofitikasiController = {
         notifikasiModel
           .getNotifCompany(idcompany)
           .then(({ rows }) => {
-            common.response(res, rows, 'notifikasi anda', 200)
+            common.response(res, rows, 'notifikasi anda company', 200)
           })
           .catch((error) => {
             console.log(error)
