@@ -6,18 +6,37 @@ const jwt = require('jsonwebtoken')
 const nofitikasiController = {
 
   getNotifikasi: (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
-    const decoded = jwt.verify(token, process.env.SECRET_KEY)
-    const idcompany = decoded.id
-    notifikasiModel
-      .getNotif(idcompany)
-      .then(({ rows }) => {
-        common.response(res, rows, 'notifikasi anda', 200)
-      })
-      .catch((error) => {
-        console.log(error)
-        next(createError)
-      })
+    try {
+      const token = req.headers.authorization.split(' ')[1]
+      const decoded = jwt.verify(token, process.env.SECRET_KEY)
+      const idcompany = decoded.idcompany
+      const idemployee = decoded.idemployee
+      if (idemployee) {
+        notifikasiModel
+          .getNotif(idemployee)
+          .then(({ rows }) => {
+            common.response(res, rows, 'notifikasi anda', 200)
+          })
+          .catch((error) => {
+            console.log(error)
+            next(createError)
+          })
+      }
+      if (idcompany) {
+        notifikasiModel
+          .getNotifCompany(idcompany)
+          .then(({ rows }) => {
+            common.response(res, rows, 'notifikasi anda', 200)
+          })
+          .catch((error) => {
+            console.log(error)
+            next(createError)
+          })
+      }
+    } catch (error) {
+      console.log(error)
+      next(createError)
+    }
   }
 //   getNotifikasi: async (req, res, next) => {
 //     try {
