@@ -15,7 +15,7 @@ const notifikasiModel = {
   },
   getNotifCompany: (idcompany) => {
     return db.query(
-      'SELECT * FROM hirejobs INNER JOIN company ON hirejobs.idcompany = company.idcompany WHERE company.idCompany = $1',
+      'SELECT hirejobs.fullname AS fullnameHire, company.fullname AS fullnameCompany, hirejobs.email AS emailHirejob, company.email AS emailCompany, * FROM hirejobs INNER JOIN company ON hirejobs.idcompany = company.idcompany WHERE company.idcompany = $1',
       [idcompany]
     )
   }
