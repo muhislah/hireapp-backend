@@ -4,10 +4,10 @@ const hireJobModel = {
   insert: (data) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'INSERT INTO hirejobs (status, idEmployee,idcompany,hp,deskripsi,tujuan,email,fullname) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        'INSERT INTO hirejobs (status, idemployee,idcompany,hp,deskripsi,tujuan,email,fullname) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
         [
           data.status,
-          data.idEmployee,
+          data.idemployee,
           data.idcompany,
           data.hp,
           data.deskripsi,
