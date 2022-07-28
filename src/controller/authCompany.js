@@ -162,7 +162,7 @@ const authCompany = {
       // commonHellper.response(res, user, 'Uppsstt email sudah ada', 200)
       const token = req.headers.authorization.split(' ')[1]
       const decoded = jwt.verify(token, process.env.SECRET_KEY)
-      const idcompany = decoded.id
+      const idcompany = decoded.idcompany
       console.log(idcompany)
       const result = await authModel.getProfil(idcompany)
       common.response(res, result, 'anda berada di profil ', 200)
@@ -175,7 +175,7 @@ const authCompany = {
     try {
       const token = req.headers.authorization.split(' ')[1]
       const decoded = jwt.verify(token, process.env.SECRET_KEY)
-      const idcompany = decoded.id
+      const idcompany = decoded.idcompany
       // console.log(idcompany)
       const {
         companyfield,

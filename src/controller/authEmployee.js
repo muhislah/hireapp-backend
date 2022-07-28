@@ -112,7 +112,7 @@ const login = async (req, res, next) => {
     const payload = {
       fullname: user.fullname,
       email: user.email,
-      id: user.idemployee
+      idemployee: user.idemployee
     }
 
     user.token = authHelper.generateToken(payload)
@@ -143,7 +143,7 @@ const updateProfileEmployee = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]
     const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
-    const idemployee = decoded.id
+    const idemployee = decoded.idemployee
     console.log(idemployee)
     const gambars = req.file.path
     // console.log(req.file)
@@ -201,7 +201,7 @@ const getProfil = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]
     const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
-    const idemployee = decoded.id
+    const idemployee = decoded.idemployee
     console.log(idemployee)
     const experience = await employeeModel.selectExperience(idemployee)
     const result = await getprofil(idemployee)
