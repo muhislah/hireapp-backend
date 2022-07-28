@@ -10,7 +10,7 @@ const HireController = {
     // const idEmploye = req.params.id
     const data = {
       status: req.body.status || 0,
-      idEmployee: req.body.idEmploye,
+      idemployee: req.body.idemploye,
       hp: req.body.hp,
       deskripsi: req.body.deskripsi,
       tujuan: req.body.tujuan,
