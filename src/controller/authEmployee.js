@@ -147,7 +147,10 @@ const updateProfileEmployee = async (req, res, next) => {
     console.log(idemployee)
     const gambars = req.file?.path || null
     console.log(gambars)
-    const ress = await cloudinary.uploader.upload(gambars)
+    let ress
+    if (gambars) {
+      ress = await cloudinary.uploader.upload(gambars)
+    }
     const {
       fullname,
       email,
