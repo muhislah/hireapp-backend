@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const {
   getEmploye,
-  getDetailEmployee,
-  getHomeEmployee,
-} = require("../controller/employee");
+  getDetailEmployee
+  // getHomeEmployee
+} = require('../controller/employee')
 // const { protect } = require("../middlewares/authEmployee");
 
 router

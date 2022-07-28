@@ -6,7 +6,7 @@ const protect = (req, res, next) => {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1]
 
-      const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+      const decoded = jwt.verify(token, process.env.SECRET_KEY)
       req.decoded = decoded
       next()
     } else {
