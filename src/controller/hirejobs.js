@@ -8,6 +8,7 @@ const HireController = {
     const decoded = jwt.verify(token, process.env.SECRET_KEY)
     const idcompany = decoded.idcompany
     // const idEmploye = req.params.id
+    console.log(idcompany)
     const data = {
       status: req.body.status || 0,
       idemployee: req.body.idemployee,
@@ -17,7 +18,7 @@ const HireController = {
       address: req.body.address,
       email: req.body.email,
       fullname: req.body.fullname,
-      idcompany
+      idcompany: req.body.idcompany
     }
     hireJobModel
       .insert(data)
