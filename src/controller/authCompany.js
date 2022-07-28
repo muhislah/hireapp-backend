@@ -187,7 +187,7 @@ const authCompany = {
         phonenumber,
         company
       } = req.body
-      const gambars = req.file.path
+      const gambars = req.file?.path || null
       // console.log(req.file)
       const ress = await cloudinary.uploader.upload(gambars)
       const data = {

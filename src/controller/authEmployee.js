@@ -145,7 +145,7 @@ const updateProfileEmployee = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY)
     const idemployee = decoded.idemployee
     console.log(idemployee)
-    const gambars = req.file.path
+    const gambars = req.file?.path || null
     // console.log(req.file)
     const ress = await cloudinary.uploader.upload(gambars)
     const {
