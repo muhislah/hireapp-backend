@@ -187,15 +187,18 @@ const authCompany = {
         phonenumber,
         company
       } = req.body
-      const gambars = req.file.path
+      const gambars = req.file?.path || null
+      let ress
       // console.log(req.file)
-      const ress = await cloudinary.uploader.upload(gambars)
+      if (gambars) {
+        ress = await cloudinary.uploader.upload(gambars)
+      }
       const data = {
         companyfield,
         address,
         companydescription,
         email,
-        image: ress.url,
+        image: ress?.url,
         instagram,
         linkedin,
         phonenumber,

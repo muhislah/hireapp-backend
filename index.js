@@ -19,7 +19,11 @@ helmet({
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3000', 'https://peworld.netlify.app']
+    origin: [
+      'http://localhost:3000',
+      'https://peworld.netlify.app',
+      'https://hireapp-frontend.vercel.app'
+    ]
   })
 )
 app.use(xss())

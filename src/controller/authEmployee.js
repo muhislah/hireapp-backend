@@ -145,9 +145,12 @@ const updateProfileEmployee = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY)
     const idemployee = decoded.idemployee
     console.log(idemployee)
-    const gambars = req.file.path
-    // console.log(req.file)
-    const ress = await cloudinary.uploader.upload(gambars)
+    const gambars = req.file?.path || null
+    console.log(gambars)
+    let ress
+    if (gambars) {
+      ress = await cloudinary.uploader.upload(gambars)
+    }
     const {
       fullname,
       email,
@@ -162,20 +165,20 @@ const updateProfileEmployee = async (req, res, next) => {
       idexperience
     } = req.body
     const data = {
-      fullname,
-      email,
-      phonenumber,
-      jobs,
-      workplace,
-      address,
-      description,
-      skill,
-      image: ress.url,
-      active,
-      idportfolio,
-      instagram,
-      github,
-      idexperience,
+      fullname: fullname || null,
+      email: email || null,
+      phonenumber: phonenumber || null,
+      jobs: jobs || null,
+      workplace: workplace || null,
+      address: address || null,
+      description: description || null,
+      skill: skill || null,
+      image: ress?.url,
+      active: active || null,
+      idportfolio: idportfolio || null,
+      instagram: instagram || null,
+      github: github || null,
+      idexperience: idexperience || null,
       role: 'employee'
     }
     await updateProfile({ ...data, idemployee })
