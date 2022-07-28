@@ -165,20 +165,20 @@ const updateProfileEmployee = async (req, res, next) => {
       idexperience
     } = req.body
     const data = {
-      fullname,
-      email,
-      phonenumber,
-      jobs,
-      workplace,
-      address,
-      description,
-      skill,
+      fullname: fullname || null,
+      email: email || null,
+      phonenumber: phonenumber || null,
+      jobs: jobs || null,
+      workplace: workplace || null,
+      address: address || null,
+      description: description || null,
+      skill: skill || null,
       image: ress?.url,
-      active,
-      idportfolio,
-      instagram,
-      github,
-      idexperience,
+      active: active || null,
+      idportfolio: idportfolio || null,
+      instagram: instagram || null,
+      github: github || null,
+      idexperience: idexperience || null,
       role: 'employee'
     }
     await updateProfile({ ...data, idemployee })
