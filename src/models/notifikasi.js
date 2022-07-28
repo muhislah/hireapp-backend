@@ -9,13 +9,13 @@ const notifikasiModel = {
   //   }
   getNotif: (idemployee) => {
     return db.query(
-      'SELECT * FROM hirejobs INNER JOIN employee ON hirejobs.idEmployee = employee.idemployee INNER JOIN company ON hirejobs.idcompany = company.idcompany where employee.idemployee = $1 OR idcompany = $2',
+      'SELECT * FROM hirejobs INNER JOIN employee ON hirejobs.idemployee = employee.idemployee where employee.idemployee = $1',
       [idemployee]
     )
   },
   getNotifCompany: (idcompany) => {
     return db.query(
-      'SELECT * FROM hirejobs INNER JOIN employee ON hirejobs.idEmployee = employee.idemployee INNER JOIN company ON hirejobs.idcompany = company.idCompany where company.idCompany = $1',
+      'SELECT * FROM hirejobs INNER JOIN company ON hirejobs.idcompany = company.idcompany WHERE company.idCompany = $1',
       [idcompany]
     )
   }
