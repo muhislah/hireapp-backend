@@ -146,7 +146,7 @@ const updateProfileEmployee = async (req, res, next) => {
     const idemployee = decoded.idemployee
     console.log(idemployee)
     const gambars = req.file?.path || null
-    // console.log(req.file)
+    console.log(gambars)
     const ress = await cloudinary.uploader.upload(gambars)
     const {
       fullname,
