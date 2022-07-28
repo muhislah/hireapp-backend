@@ -170,7 +170,7 @@ const updateProfileEmployee = async (req, res, next) => {
       address,
       description,
       skill,
-      image: ress.url,
+      image: ress?.url,
       active,
       idportfolio,
       instagram,
