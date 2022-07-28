@@ -37,7 +37,7 @@ const authCompany = {
       delete user.password
       const payload = {
         email: user.email,
-        id: user.idcompany,
+        idcompany: user.idcompany,
         fullname: user.fullname,
         phonenumber: user.phonenumber,
         company: user.company,
@@ -49,7 +49,7 @@ const authCompany = {
       const newRefreshToken = await authHelper.generateRefreshToken(payload)
       const data = {
         email,
-        id: user.idcompany,
+        idcompany: user.idcompany,
         token: user.token,
         fullname: user.fullname,
         phonenumber: user.phonenumber,
