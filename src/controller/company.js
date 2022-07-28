@@ -13,7 +13,23 @@ const companyController = {
         next(createError)
       })
   },
-
+  getDetailCompany: (req, res, next) => {
+    const idcompany = req.params.idcompany
+    modelCompany
+      .getDetailCompany(idcompany)
+      .then((result) => {
+        common.response(
+          res,
+          result,
+          'get detail data success',
+          200
+        )
+      })
+      .catch((error) => {
+        console.log(error)
+        next(createError)
+      })
+  },
   getCompanyByFilter: async (req, res, next) => {
     try {
       const sort = req.query.sort
@@ -68,12 +84,7 @@ const companyController = {
     modelCompany
       .CompanyByEmployee(id)
       .then((result) => {
-        common.response(
-          res,
-          result.rows,
-          'data company by employee',
-          200
-        )
+        common.response(res, result.rows, 'data company by employee', 200)
       })
       .catch((err) => {
         console.log(err)

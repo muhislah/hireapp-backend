@@ -1,12 +1,20 @@
 const db = require('../config/db')
 
 const hireJobModel = {
-  insert: (body) => {
-    const { status, idEmployee } = body
+  insert: (data) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'INSERT INTO hirejobs (status, idEmployee) VALUES ($1,$2)',
-        [status, idEmployee],
+        'INSERT INTO hirejobs (status, idemployee,idcompany,hp,deskripsi,tujuan,email,fullname) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        [
+          data.status,
+          data.idemployee,
+          data.idcompany,
+          data.hp,
+          data.deskripsi,
+          data.tujuan,
+          data.email,
+          data.fullname
+        ],
         (err, result) => {
           if (!err) {
             resolve(result)
@@ -17,11 +25,11 @@ const hireJobModel = {
       )
     })
   },
-  update: ({ status, idEmployee, idhirejob }) => {
+  update: ({ status, idEmployee, idcompany, idhirejob }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'UPDATE hirejobs SET status = $1,  idEmployee = $2 WHERE idhirejob=$3',
-        [status, idEmployee, idhirejob],
+        'UPDATE hirejobs SET status = $1,  idEmployee = $2,idcompany=$3 WHERE idhirejob=$4',
+        [status, idEmployee, idcompany, idhirejob],
         (err, result) => {
           if (!err) {
             resolve(result)

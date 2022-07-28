@@ -9,9 +9,7 @@ const protect = (req, res, next) => {
     ) {
       token = req.headers.authorization.split(' ')[1]
 
-      const decoded = jwt.verify(token, process.env.SECRET_KEY, {
-        issuer: 'hiring donk'
-      })
+      const decoded = jwt.verify(token, process.env.SECRET_KEY)
       // console.log(decoded)
       req.decoded = decoded
       next()

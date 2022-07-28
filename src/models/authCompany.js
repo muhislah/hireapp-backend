@@ -19,6 +19,21 @@ const authModel = {
       )
     })
   },
+  getProfil: (idcompany) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        'SELECT * FROM company WHERE idcompany = $1',
+        [idcompany],
+        (err, result) => {
+          if (!err) {
+            resolve(result.rows)
+          } else {
+            reject(new Error(err))
+          }
+        }
+      )
+    })
+  },
   create: ({
     idCompany,
     fullname,
@@ -27,11 +42,12 @@ const authModel = {
     company,
     phonenumber,
     position,
-    role
+    role,
+    active = 0
   }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'INSERT INTO company (idCompany, fullname, password, email,  company,phonenumber,position,role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        'INSERT INTO company (idCompany, fullname, password, email,  company,phonenumber,position,role,active) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)',
         [
           idCompany,
           fullname,
@@ -40,7 +56,8 @@ const authModel = {
           company,
           phonenumber,
           position,
-          role
+          role,
+          active
         ],
         (err, result) => {
           if (!err) {
@@ -55,7 +72,7 @@ const authModel = {
   activasi: ({ active = '1', email }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'UPDATE users SET active = $1 where email = $2',
+        'UPDATE company SET active = $1 where email = $2',
         [active, email],
         (err, result) => {
           if (!err) {

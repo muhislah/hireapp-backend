@@ -8,7 +8,6 @@ Router.post(
   '/',
   protect,
   // isCompany,
-  uploadImg.multipleUpload,
   HireController.CreateHire
 ).put(
   '/:idhirejob',

@@ -7,9 +7,16 @@ const notifikasiModel = {
   //       [idEmployee]
   //     )
   //   }
-  getNotif: () => {
+  getNotif: (idemployee) => {
     return db.query(
-      'SELECT hirejobs.status,employee.fullname,employee.address,employee.skill,employee.image FROM hirejobs INNER JOIN employee ON hirejobs.idEmployee = employee.idemployee'
+      'SELECT employee.idemployee, employee.fullname, hirejobs.idhirejob, employee.description,employee.skill,employee.jobs,employee.address,employee.image AS imageEmployee FROM hirejobs INNER JOIN employee ON hirejobs.idemployee = employee.idemployee where employee.idemployee = $1',
+      [idemployee]
+    )
+  },
+  getNotifCompany: (idcompany) => {
+    return db.query(
+      'SELECT hirejobs.fullname AS fullnameHire, company.fullname AS fullnameCompany, hirejobs.email AS emailHirejob, company.email AS emailCompany, * FROM hirejobs INNER JOIN company ON hirejobs.idcompany = company.idcompany WHERE company.idcompany = $1',
+      [idcompany]
     )
   }
 }

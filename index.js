@@ -16,6 +16,12 @@ app.use(cors())
 helmet({
   crossOriginResourcePolicy: false
 })
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000', 'https://peworld.netlify.app']
+  })
+)
 app.use(xss())
 app.disable('x-powered-by')
 

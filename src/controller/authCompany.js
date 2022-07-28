@@ -6,6 +6,8 @@ const { v4: uuidv4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const authHelper = require('../helper/auth')
 const cloudinary = require('../helper/cloudinary')
+const { sendMail } = require('../helper/sendEmail')
+// const nodemailer = require("nodemailer");
 
 const authCompany = {
   loginCompany: async (req, res, next) => {
@@ -27,21 +29,27 @@ const authCompany = {
           message: ' data yang anda inputkan salah'
         })
       }
+      // if (user.active === '0') {
+      //   return res.json({
+      //     message: ' anda belum verifikasi'
+      //   })
+      // }
       delete user.password
       const payload = {
         email: user.email,
-        id: user.idcompany,
+        idcompany: user.idcompany,
         fullname: user.fullname,
         phonenumber: user.phonenumber,
         company: user.company,
         position: user.position,
-        role: user.role
+        role: user.role,
+        status: user.active
       }
       user.token = authHelper.generateToken(payload)
       const newRefreshToken = await authHelper.generateRefreshToken(payload)
       const data = {
         email,
-        id: user.idcompany,
+        idcompany: user.idcompany,
         token: user.token,
         fullname: user.fullname,
         phonenumber: user.phonenumber,
@@ -55,7 +63,44 @@ const authCompany = {
       next(createError)
     }
   },
+  activasi: async (req, res, next) => {
+    try {
+      const token = req.params.token
+      const decoded = await jwt.verify(token, process.env.SECRET_KEY)
+      console.log(decoded)
+      const data = {
+        active: 1,
+        email: decoded.email,
+        role: decoded.role
+      }
 
+      await authModel.activasi(data)
+      const newPayload = {
+        email: decoded.email,
+        name: decoded.fullname,
+        role: decoded.role
+      }
+      console.log(newPayload)
+      // const newRefreshToken = await authHelper.generateRefreshToken(newPayload)
+      if (decoded.status === '1') {
+        return res.json({ message: 'akun anda sudah terverifikasi' })
+      }
+      const result = {
+        email: decoded.email,
+        name: decoded.name
+        // tokenNew: newRefreshToken
+      }
+      common.response(
+        res,
+        result,
+        'akun anda sudah verifikasi sebagai company, silahkan login',
+        200
+      )
+    } catch (error) {
+      console.log(error)
+      next(createError)
+    }
+  },
   registerCompany: async (req, res, next) => {
     try {
       const { fullname, password, email, company, phonenumber, position } =
@@ -71,7 +116,8 @@ const authCompany = {
         company,
         phonenumber,
         position,
-        role
+        role,
+        active: 0
       }
       console.log(data)
       const { rowCount } = await authModel.FindEmail(email)
@@ -79,7 +125,7 @@ const authCompany = {
         return next(createError(403, 'user sudah terdaftar'))
       }
       await authModel.create(data)
-      //   sendMail({ email, name, role })
+      sendMail({ email, fullname, role })
       common.response(
         res,
         {
@@ -101,20 +147,25 @@ const authCompany = {
   },
   profil: async (req, res, next) => {
     try {
-      const email = req.decoded.email
-      const {
-        rows: [user]
-      } = await authModel.FindEmail(email)
-      const data = {
-        name: user.fullname,
-        email: user.email,
-        phone_number: user.phonenumber,
-        company: user.company,
-        position: user.position
-      }
-      delete user.password
+      // const email = req.decoded.email
+      // const {
+      //   rows: [user]
+      // } = await authModel.FindEmail(email)
+      // const data = {
+      //   name: user.fullname,
+      //   email: user.email,
+      //   phone_number: user.phonenumber,
+      //   company: user.company,
+      //   position: user.position
+      // }
+      // delete user.password
       // commonHellper.response(res, user, 'Uppsstt email sudah ada', 200)
-      common.response(res, data, `anda berada di profil ${user.fullname}`, 200)
+      const token = req.headers.authorization.split(' ')[1]
+      const decoded = jwt.verify(token, process.env.SECRET_KEY)
+      const idcompany = decoded.idcompany
+      console.log(idcompany)
+      const result = await authModel.getProfil(idcompany)
+      common.response(res, result, 'anda berada di profil ', 200)
     } catch (error) {
       console.log(error)
       next(createError)
@@ -124,7 +175,7 @@ const authCompany = {
     try {
       const token = req.headers.authorization.split(' ')[1]
       const decoded = jwt.verify(token, process.env.SECRET_KEY)
-      const idcompany = decoded.id
+      const idcompany = decoded.idcompany
       // console.log(idcompany)
       const {
         companyfield,
@@ -135,8 +186,7 @@ const authCompany = {
         linkedin,
         phonenumber,
         company
-      } =
-      req.body
+      } = req.body
       const gambars = req.file.path
       // console.log(req.file)
       const ress = await cloudinary.uploader.upload(gambars)
@@ -149,7 +199,8 @@ const authCompany = {
         instagram,
         linkedin,
         phonenumber,
-        company
+        company,
+        idcompany
       }
       console.log(data)
       authModel

@@ -7,11 +7,12 @@ const { protect } = require('../middlewares/auth')
 const uploadImg = require('../middlewares/uploadFile')
 
 Router.post('/login', authCompany.loginCompany)
+  .get('/profile', protect, authCompany.profil)
   .post('/register', authCompany.registerCompany)
   .get('/profile', protect, authCompany.profil)
   .post('/refreshtoken', authCompany.refreshToken)
   .post('/changePassword', authCompany.changePassword)
-  .get('/profile', protect, authCompany.profil)
+  .get('/activasi/:token', authCompany.activasi)
   .put(
     '/update-profil',
     uploadImg.singleUpload,
