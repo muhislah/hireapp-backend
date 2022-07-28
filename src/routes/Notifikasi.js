@@ -6,7 +6,7 @@ const employe = require('../middlewares/authEmployee')
 
 Router
   // .get('/', protect, nofitikasiController.getNotifikasi)
-  .get('/', employe.protect, nofitikasiController.getNotifikasiEmploye)
   .get('/', protect, nofitikasiController.getNotifikasiCompany)
+  .get('/', employe.protect, nofitikasiController.getNotifikasiEmploye)
 
 module.exports = Router
