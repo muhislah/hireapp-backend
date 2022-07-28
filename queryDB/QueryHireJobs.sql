@@ -79,13 +79,13 @@ CREATE TABLE portfolio (
 CREATE TABLE hirejobs (
      idhirejob INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     status VARCHAR(300) NOT NULL,
-	fullname VARCHAR(200),
-	 hp VARCHAR(200),
-	deskripsi VARCHAR(800),
-	tujuan VARCHAR(200),
-	email VARCHAR(200),
-    idEmployee VARCHAR(200),
-    idCompany VARCHAR(200),
+	fullname VARCHAR(200) DEFAULT NULL,
+	 hp VARCHAR(200) DEFAULT NULL,
+	deskripsi VARCHAR(800) DEFAULT NULL,
+	tujuan VARCHAR(200) DEFAULT NULL,
+	email VARCHAR(200) DEFAULT NULL,
+    idemployee VARCHAR(200) NOT NULL,
+    idcompany VARCHAR(200) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -200,7 +200,14 @@ is_read varchar(200) ,
 
 psql -U hlqmulkbayltge -h ec2-44-198-82-71.compute-1.amazonaws.com -p 5432 -d d6v1jp9cocrlpn
 
+a8a0f07b-e628-4e5b-b183-92df49a92814
+
+SELECT * FROM hirejobs INNER JOIN company ON hirejobs.idcompany = company.idcompany WHERE company.idcompany = 'a8a0f07b-e628-4e5b-b183-92df49a92814'
 
 
 // telegrams
 psql -U hlqmulkbayltge -h ec2-44-198-82-71.compute-1.amazonaws.com -p 5432 -d d6v1jp9cocrlpn
+
+
+
+https://github.com/muhislah/hireapp-frontend/tree/develop2.git
