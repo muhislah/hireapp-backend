@@ -101,10 +101,12 @@ GMAIL_OAUTH_TOKEN_EXPIRE= "token expire"
 | `params` | `string` | **Required**. Your API key |
 
 
-### Link Demo Backend 
-```
-https://hire-jobs.herokuapp.com
-```
+<!-- RELATED PROJECT -->
+## Related Project
+* [`Peworld Demo`](https://hireapp-frontend.vercel.app/landingpage)
+* [`Peworld Rest API`](https://hire-jobs.herokuapp.com/)
+* [`Peworld Frontend`](https://github.com/muhislah/hireapp-frontend)
+
 
 ### Link Rest Api Dokumentasion Postman
 ```
