@@ -105,7 +105,7 @@ GMAIL_OAUTH_TOKEN_EXPIRE= "token expire"
 ## Related Project
 * [`Peworld Demo`](https://hireapp-frontend.vercel.app/landingpage)
 * [`Peworld Rest API`](https://hire-jobs.herokuapp.com/)
-* [`Peworld Frontend`](https://github.com/muhislah/hireapp-frontend)
+* [`Peworld Frontend`](https://github.com/muhislah/hireapp-frontend/tree/develop2)
 
 
 ### Link Rest Api Dokumentasion Postman
