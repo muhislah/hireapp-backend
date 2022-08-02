@@ -3,15 +3,15 @@
 
   <h3 align="center">Peworld Hirejobs</h3>
   <p align="center">
-    <image align="center" width="200" src='./images/peworld.jpg' />
+    <image align="center" width="200" src='./upload/peworld.jpg' />
   </p>
 
   <p align="center">
     <br />
-    <a href="https://github.com/muhislah/hireapp-frontend.git"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/muhislah/hireapp-backend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://hireapp-frontend.vercel.app/">View Demo</a>
+    <a href="https://hire-jobs.herokuapp.com/">View Demo</a>
   </p>
 </p>
 
