@@ -16,14 +16,6 @@
 </p>
 
 
- <a href="https://nodejs.org/">
-    <img src="https://cdn-images-1.medium.com/max/871/1*d2zLEjERsrs1Rzk_95QU9A.png">
-  </a>
-
-![](https://img.shields.io/badge/Code%20Style-Standard-yellow.svg)
-![](https://img.shields.io/badge/Dependencies-Express-green.svg)
-
-
 # Hire Jobs
 This HireJobs application was built using NodeJS and ExpressJS for the backend, and postgresql for the database.
 
