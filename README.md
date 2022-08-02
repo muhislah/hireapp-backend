@@ -1,4 +1,19 @@
-<h1 align="center">Hire Jobs</h1>
+<br />
+<p align="center">
+
+  <h3 align="center">Peworld Hirejobs</h3>
+  <p align="center">
+    <image align="center" width="200" src='./images/peworld.jpg' />
+  </p>
+
+  <p align="center">
+    <br />
+    <a href="https://github.com/muhislah/hireapp-frontend.git"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://hireapp-frontend.vercel.app/">View Demo</a>
+  </p>
+</p>
 
 
  <a href="https://nodejs.org/">
